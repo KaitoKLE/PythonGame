@@ -31,8 +31,10 @@ class Game:
         self.running = True
         logging.info('Game is running')
         while self.running:
+            self.events()
             self.update()
             self.display.draw(self.npcs, self.player)
+            self.clock.tick(DEFAULT_FRAME_RATE)
         logging.info('The game stopped running')
 
     def stop(self):
@@ -40,11 +42,9 @@ class Game:
         self.running = False
 
     def update(self):
-        self.events()
         self.player.move()
         self.constraint(self.player)
         self.process_collisions()
-        self.clock.tick(DEFAULT_FRAME_RATE)
 
     def events(self):
         for event in pygame.event.get():

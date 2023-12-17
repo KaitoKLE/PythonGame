@@ -4,11 +4,13 @@ from os.path import dirname
 import pygame
 import pygame.gfxdraw
 
+from tiles import TileSet, TileMap
+
 MAIN_PATH = dirname(dirname(__file__))
 PLAYER_SPRITE = f'{MAIN_PATH}/resources/icon.png'
 # DISPLAY SETTINGS
-W_MIN_WIDTH = 900
-W_MIN_HEIGHT = 600
+W_MIN_WIDTH = 1024
+W_MIN_HEIGHT = 640
 POINTER_DEFAULT_SIZE = 25
 
 L_DOWN = 2
@@ -37,14 +39,20 @@ def detect_collisions(ch1, ch2):
 
 class Display:
     def __init__(self, game):
-        # self.game = game
+        # DEBUG MAP
+        ts = TileSet(f'{MAIN_PATH}\\resources\\test_tileset.png')
+        ts.load()
+        self.tile_map = TileMap(ts)
+        self.tile_map.set_zero()
         self.width = W_MIN_WIDTH
         self.height = W_MIN_HEIGHT
         self.canvas = pygame.display.set_mode((self.width, self.height), False)
         try:
-            pygame.display.set_icon(pygame.image.load(f'{MAIN_PATH}/resources/icon.png'))
+            pygame.display.set_icon(
+                pygame.image.load(f'{MAIN_PATH}/resources/icon.png')
+            )
         except (FileNotFoundError, IOError, PermissionError) as e:
-            logging.error(f'Cannot set the game icon: {e}')
+            logging.error(f'Cannot load the image file: {e}')
         pygame.display.set_caption('Python game')
 
     @property
@@ -52,10 +60,11 @@ class Display:
         return int(self.width / 2), int(self.height / 2)
 
     def draw(self, npcs, player):
-        self.background('black')
-        for npc in npcs:
-            self.draw_character(npc)
-        self.draw_character(player)
+        # self.background('black')
+        # for npc in npcs:
+        #     self.draw_character(npc)
+        # self.draw_character(player)
+        self.tile_map.render()
         pygame.display.flip()
 
     def background(self, color):
