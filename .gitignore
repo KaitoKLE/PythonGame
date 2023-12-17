@@ -5,3 +5,9 @@ src/__pycache__/custom_dataclasses.cpython-312.pyc
 src/__pycache__/display.cpython-312.pyc
 src/__pycache__/file_reader.cpython-312.pyc
 src/__pycache__/game.cpython-312.pyc
+/.idea/.gitignore
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/PythonGame.iml
+/.idea/vcs.xml
