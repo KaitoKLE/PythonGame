@@ -31,6 +31,6 @@ class Character:
     def y(self, new_y):
         self.pos = [self.x, new_y]
 
-    def update(self):
+    def move(self):
         self.__pos[0] += self.dx
         self.__pos[1] += self.dy

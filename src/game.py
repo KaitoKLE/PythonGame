@@ -1,9 +1,10 @@
 import logging
+from random import choice, randint
 
 import pygame
 
 from character import Character
-from display import Display, Sprite, L_DOWN, L_RIGHT, L_UP, L_LEFT, PLAYER_SPRITE
+from display import Display, Sprite, detect_collisions, L_DOWN, L_RIGHT, L_UP, L_LEFT, PLAYER_SPRITE
 
 # GAME SETTINGS
 MOVEMENT_DEFAULT_SPEED = 5
@@ -40,9 +41,9 @@ class Game:
 
     def update(self):
         self.process_keyboard_events()
-        self.player.update()
+        self.player.move()
         self.constraint(self.player)
-        self.collisions()
+        self.process_collisions()
         self.events()
         self.clock.tick(DEFAULT_FRAME_RATE)
 
@@ -84,23 +85,9 @@ class Game:
         if character.y < 0:
             character.y = 0
 
-    def collisions(self):
-        prev_movement_dir = (self.player.dx, self.player.dy)
-        player_rect = pygame.Rect(self.player.x, self.player.y,
-                                  self.player.sprite_data.size, self.player.sprite_data.size)
+    def process_collisions(self):
         for npc in self.npcs:
-            npc_rect = pygame.Rect(npc.x, npc.y,
-                                   npc.sprite_data.size, npc.sprite_data.size)
-            if player_rect.colliderect(npc_rect):
-                self.player.dx = 0
-                self.player.dy = 0
-                if prev_movement_dir[0] < 0:
-                    player_rect.move_ip(5, 0)
-                elif prev_movement_dir[0] > 0:
-                    player_rect.move_ip(-5, 0)
-                if prev_movement_dir[1] < 0:
-                    player_rect.move_ip(0, 5)
-                elif prev_movement_dir[1] > 0:
-                    player_rect.move_ip(0, -5)
-                self.player.x = player_rect.x
-                self.player.y = player_rect.y
+            result = detect_collisions(self.player, npc)
+            if result:
+                self.player.x = result[0]
+                self.player.y = result[1]

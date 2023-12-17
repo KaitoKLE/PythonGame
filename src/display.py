@@ -17,6 +17,24 @@ L_LEFT = 4
 L_RIGHT = 6
 
 
+def detect_collisions(ch1, ch2):
+    prev_movement_dir = (ch1.dx, ch1.dy)
+    c1_rect = pygame.Rect(ch1.x, ch1.y, ch1.sprite_data.size, ch1.sprite_data.size)
+    c2_rect = pygame.Rect(ch2.x, ch2.y, ch2.sprite_data.size, ch2.sprite_data.size)
+    if c1_rect.colliderect(c2_rect):
+        ch1.dx = 0
+        ch1.dy = 0
+        if prev_movement_dir[0] < 0:  # left
+            c1_rect.move_ip(5, 0)
+        elif prev_movement_dir[0] > 0:  # right
+            c1_rect.move_ip(-5, 0)
+        if prev_movement_dir[1] < 0:  # up
+            c1_rect.move_ip(0, 5)
+        elif prev_movement_dir[1] > 0:  # down
+            c1_rect.move_ip(0, -5)
+        return c1_rect.x, c1_rect.y
+
+
 class Display:
     def __init__(self, game):
         # self.game = game
