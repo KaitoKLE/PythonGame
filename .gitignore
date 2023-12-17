@@ -1,0 +1,7 @@
+logging.log
+src/__pycache__/character.cpython-312.pyc
+src/__pycache__/csv_reader.cpython-312.pyc
+src/__pycache__/custom_dataclasses.cpython-312.pyc
+src/__pycache__/display.cpython-312.pyc
+src/__pycache__/file_reader.cpython-312.pyc
+src/__pycache__/game.cpython-312.pyc
