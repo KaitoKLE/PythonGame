@@ -1,5 +1,6 @@
 class Character:
-    def __init__(self, pos, sprite):
+    def __init__(self, pos, name, sprite):
+        self.name = name
         self.__pos = list(pos)
         self.dx = 0
         self.dy = 0

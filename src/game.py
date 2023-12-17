@@ -19,11 +19,11 @@ class Game:
         self.clock = pygame.time.Clock()
         self.display = Display(self)
         self.active_keys = set()
-        self.player = Character(self.display.center, Sprite(40, L_DOWN, (255, 255, 255), PLAYER_SPRITE))
+        self.player = Character(self.display.center, 'Player', Sprite(40, L_DOWN, (255, 255, 255), PLAYER_SPRITE))
         self.npcs = (
-            Character((500, 400), Sprite(40, L_DOWN, (255, 0, 0), PLAYER_SPRITE)),
-            Character((200, 500), Sprite(40, L_DOWN,(0, 255, 0), PLAYER_SPRITE)),
-            Character((80, 300), Sprite(40, L_DOWN, (0, 0, 255), PLAYER_SPRITE))
+            Character((500, 400), 'Red NPC', Sprite(40, L_DOWN, (255, 0, 0), PLAYER_SPRITE)),
+            Character((200, 500), 'Green NPC', Sprite(40, L_DOWN,(0, 255, 0), PLAYER_SPRITE)),
+            Character((80, 300), 'Blue NPC', Sprite(40, L_DOWN, (0, 0, 255), PLAYER_SPRITE))
         )
         logging.info('The game is now ready to start running')
 
@@ -40,11 +40,10 @@ class Game:
         self.running = False
 
     def update(self):
-        self.process_keyboard_events()
+        self.events()
         self.player.move()
         self.constraint(self.player)
         self.process_collisions()
-        self.events()
         self.clock.tick(DEFAULT_FRAME_RATE)
 
     def events(self):
@@ -56,6 +55,7 @@ class Game:
                 self.active_keys.add(event.key)
             elif event.type == pygame.KEYUP:
                 self.active_keys.discard(event.key)
+        self.process_keyboard_events()
 
     def process_keyboard_events(self):
         if pygame.K_RIGHT in self.active_keys:
