@@ -60,11 +60,10 @@ class Display:
         return int(self.width / 2), int(self.height / 2)
 
     def draw(self, npcs, player):
-        # self.background('black')
-        # for npc in npcs:
-        #     self.draw_character(npc)
-        # self.draw_character(player)
         self.tile_map.render()
+        for npc in npcs:
+            self.draw_character(npc)
+        self.draw_character(player)
         pygame.display.flip()
 
     def background(self, color):
