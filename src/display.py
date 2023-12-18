@@ -1,22 +1,10 @@
 import logging
-from os.path import dirname
 
 import pygame
 import pygame.gfxdraw
 
+from constants import MAIN_PATH, W_MIN_WIDTH, W_MIN_HEIGHT
 from tiles import TileSet, TileMap
-
-MAIN_PATH = dirname(dirname(__file__))
-PLAYER_SPRITE = f'{MAIN_PATH}/resources/icon.png'
-# DISPLAY SETTINGS
-W_MIN_WIDTH = 1024
-W_MIN_HEIGHT = 640
-POINTER_DEFAULT_SIZE = 25
-
-L_DOWN = 2
-L_UP = 8
-L_LEFT = 4
-L_RIGHT = 6
 
 
 def detect_collisions(ch1, ch2):

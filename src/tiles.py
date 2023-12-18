@@ -1,7 +1,7 @@
 import numpy
 import pygame
 
-TILES_SIZE = 64
+from constants import TILES_SIZE
 
 
 class TileSet:
@@ -32,9 +32,9 @@ class TileSet:
 
 
 class TileMap:
-    def __init__(self, tileset, size=(10, 16), rect=None):
+    def __init__(self, tile_set, size=(10, 16), rect=None):
         self.size = size
-        self.tileset = tileset
+        self.tile_set = tile_set
         self.map = numpy.zeros(size, dtype=int)
 
         h, w = self.size
@@ -49,7 +49,7 @@ class TileMap:
         m, n = self.map.shape
         for i in range(m):
             for j in range(n):
-                tile = self.tileset.tiles[self.map[i, j]]
+                tile = self.tile_set.tiles[self.map[i, j]]
                 display.blit(tile, (j * TILES_SIZE, i * TILES_SIZE))
 
     def set_zero(self):

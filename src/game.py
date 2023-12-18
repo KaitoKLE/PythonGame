@@ -1,14 +1,11 @@
 import logging
-from random import choice, randint
 
 import pygame
 
 from character import Character
-from display import Display, Sprite, detect_collisions, L_DOWN, L_RIGHT, L_UP, L_LEFT, PLAYER_SPRITE
-
-# GAME SETTINGS
-MOVEMENT_DEFAULT_SPEED = 5
-DEFAULT_FRAME_RATE = 60
+from display import Display, Sprite, detect_collisions
+from constants import (LOOKING_DOWN, PLAYER_SPRITE, DEFAULT_FRAME_RATE, MOVEMENT_DEFAULT_SPEED, LOOKING_RIGHT,
+                       LOOKING_LEFT, LOOKING_UP)
 
 
 class Game:
@@ -19,11 +16,13 @@ class Game:
         self.clock = pygame.time.Clock()
         self.display = Display(self)
         self.active_keys = set()
-        self.player = Character(self.display.center, 'Player', Sprite(40, L_DOWN, (255, 255, 255), PLAYER_SPRITE))
+        self.player = Character(
+            self.display.center, 'Player', Sprite(40, LOOKING_DOWN, (255, 255, 255), PLAYER_SPRITE)
+        )
         self.npcs = (
-            Character((500, 400), 'Red NPC', Sprite(40, L_DOWN, (255, 0, 0), PLAYER_SPRITE)),
-            Character((200, 500), 'Green NPC', Sprite(40, L_DOWN,(0, 255, 0), PLAYER_SPRITE)),
-            Character((80, 300), 'Blue NPC', Sprite(40, L_DOWN, (0, 0, 255), PLAYER_SPRITE))
+            Character((500, 400), 'Red NPC', Sprite(40, LOOKING_DOWN, (255, 0, 0), PLAYER_SPRITE)),
+            Character((200, 500), 'Green NPC', Sprite(40, LOOKING_DOWN, (0, 255, 0), PLAYER_SPRITE)),
+            Character((80, 300), 'Blue NPC', Sprite(40, LOOKING_DOWN, (0, 0, 255), PLAYER_SPRITE))
         )
         logging.info('The game is now ready to start running')
 
@@ -52,6 +51,7 @@ class Game:
                 logging.info('An event to QUIT has been started')
                 self.stop()
             elif event.type == pygame.KEYDOWN:
+                self.active_keys.clear()
                 self.active_keys.add(event.key)
             elif event.type == pygame.KEYUP:
                 self.active_keys.discard(event.key)
@@ -60,18 +60,18 @@ class Game:
     def process_keyboard_events(self):
         if pygame.K_RIGHT in self.active_keys:
             self.player.dx = MOVEMENT_DEFAULT_SPEED
-            self.player.sprite_data.looking_at = L_RIGHT
+            self.player.sprite_data.looking_at = LOOKING_RIGHT
         elif pygame.K_LEFT in self.active_keys:
             self.player.dx = -MOVEMENT_DEFAULT_SPEED
-            self.player.sprite_data.looking_at = L_LEFT
+            self.player.sprite_data.looking_at = LOOKING_LEFT
         else:
             self.player.dx = 0
         if pygame.K_UP in self.active_keys:
             self.player.dy = -MOVEMENT_DEFAULT_SPEED
-            self.player.sprite_data.looking_at = L_UP
+            self.player.sprite_data.looking_at = LOOKING_UP
         elif pygame.K_DOWN in self.active_keys:
             self.player.dy = MOVEMENT_DEFAULT_SPEED
-            self.player.sprite_data.looking_at = L_DOWN
+            self.player.sprite_data.looking_at = LOOKING_DOWN
         else:
             self.player.dy = 0
 
