@@ -4,8 +4,6 @@ class Character:
         self.__pos = list(pos)
         self.dx = 0
         self.dy = 0
-        self.col_dx = False
-        self.col_dy = False
         self.sprite_data = sprite
 
     @property
