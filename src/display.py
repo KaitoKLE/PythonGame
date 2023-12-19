@@ -4,7 +4,6 @@ import pygame
 import pygame.gfxdraw
 
 from constants import MAIN_PATH, W_MIN_WIDTH, W_MIN_HEIGHT, MOVEMENT_DEFAULT_SPEED
-from tiles import TileSet, TileMap
 
 
 def detect_collisions(ch1, ch2):
@@ -27,11 +26,6 @@ def detect_collisions(ch1, ch2):
 
 class Display:
     def __init__(self, game):
-        # DEBUG MAP
-        ts = TileSet(f'{MAIN_PATH}\\resources\\test_tileset.png')
-        ts.load()
-        self.tile_map = TileMap(ts)
-        self.tile_map.set_zero()
         self.width = W_MIN_WIDTH
         self.height = W_MIN_HEIGHT
         self.canvas = pygame.display.set_mode((self.width, self.height), False)
@@ -47,9 +41,9 @@ class Display:
     def center(self):
         return int(self.width / 2), int(self.height / 2)
 
-    def draw(self, npcs, player):
-        self.tile_map.render()
-        for npc in npcs:
+    def draw(self, c_map, player):
+        c_map.TILE_MAP.render()
+        for npc in c_map.NPC_LIST:
             self.draw_character(npc)
         self.draw_character(player)
         pygame.display.flip()

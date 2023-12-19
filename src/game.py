@@ -5,7 +5,8 @@ import pygame
 from character import Character
 from display import Display, Sprite, detect_collisions
 from constants import (LOOKING_DOWN, PLAYER_SPRITE, DEFAULT_FRAME_RATE, MOVEMENT_DEFAULT_SPEED, LOOKING_RIGHT,
-                       LOOKING_LEFT, LOOKING_UP)
+                       LOOKING_LEFT, LOOKING_UP, TILES_SIZE)
+from map import Map
 
 
 class Game:
@@ -17,12 +18,15 @@ class Game:
         self.display = Display(self)
         self.active_keys = set()
         self.player = Character(
-            self.display.center, 'Player', Sprite(40, LOOKING_DOWN, (255, 255, 255), PLAYER_SPRITE)
+            self.display.center, 'Player', Sprite(TILES_SIZE, LOOKING_DOWN, (255, 255, 255), PLAYER_SPRITE)
         )
-        self.npcs = (
-            Character((500, 400), 'Red NPC', Sprite(40, LOOKING_DOWN, (255, 0, 0), PLAYER_SPRITE)),
-            Character((200, 500), 'Green NPC', Sprite(40, LOOKING_DOWN, (0, 255, 0), PLAYER_SPRITE)),
-            Character((80, 300), 'Blue NPC', Sprite(40, LOOKING_DOWN, (0, 0, 255), PLAYER_SPRITE))
+        self.current_map = Map(
+            0,
+            [
+                Character((500, 400), 'Red NPC', Sprite(TILES_SIZE, LOOKING_DOWN, (255, 0, 0), PLAYER_SPRITE)),
+                Character((200, 500), 'Green NPC', Sprite(TILES_SIZE, LOOKING_DOWN, (0, 255, 0), PLAYER_SPRITE)),
+                Character((80, 300), 'Blue NPC', Sprite(TILES_SIZE, LOOKING_DOWN, (0, 0, 255), PLAYER_SPRITE))
+            ]
         )
         logging.info('The game is now ready to start running')
 
@@ -32,7 +36,7 @@ class Game:
         while self.running:
             self.events()
             self.update()
-            self.display.draw(self.npcs, self.player)
+            self.display.draw(self.current_map, self.player)
             self.clock.tick(DEFAULT_FRAME_RATE)
         logging.info('The game stopped running')
 
@@ -85,7 +89,7 @@ class Game:
             character.y = 0
 
     def process_collisions(self):
-        for npc in self.npcs:
+        for npc in self.current_map.NPC_LIST:
             result = detect_collisions(self.player, npc)
             if result:
                 self.player.x = result[0]
