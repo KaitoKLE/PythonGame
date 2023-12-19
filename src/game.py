@@ -51,7 +51,6 @@ class Game:
                 logging.info('An event to QUIT has been started')
                 self.stop()
             elif event.type == pygame.KEYDOWN:
-                self.active_keys.clear()
                 self.active_keys.add(event.key)
             elif event.type == pygame.KEYUP:
                 self.active_keys.discard(event.key)

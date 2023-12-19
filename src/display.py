@@ -3,7 +3,7 @@ import logging
 import pygame
 import pygame.gfxdraw
 
-from constants import MAIN_PATH, W_MIN_WIDTH, W_MIN_HEIGHT
+from constants import MAIN_PATH, W_MIN_WIDTH, W_MIN_HEIGHT, MOVEMENT_DEFAULT_SPEED
 from tiles import TileSet, TileMap
 
 
@@ -15,13 +15,13 @@ def detect_collisions(ch1, ch2):
         ch1.dx = 0
         ch1.dy = 0
         if prev_movement_dir[0] < 0:  # left
-            c1_rect.move_ip(5, 0)
+            c1_rect.move_ip(MOVEMENT_DEFAULT_SPEED, 0)
         elif prev_movement_dir[0] > 0:  # right
-            c1_rect.move_ip(-5, 0)
+            c1_rect.move_ip(-MOVEMENT_DEFAULT_SPEED, 0)
         if prev_movement_dir[1] < 0:  # up
-            c1_rect.move_ip(0, 5)
+            c1_rect.move_ip(0, MOVEMENT_DEFAULT_SPEED)
         elif prev_movement_dir[1] > 0:  # down
-            c1_rect.move_ip(0, -5)
+            c1_rect.move_ip(0, -MOVEMENT_DEFAULT_SPEED)
         return c1_rect.x, c1_rect.y
 
 
