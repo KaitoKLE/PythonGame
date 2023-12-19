@@ -3,7 +3,8 @@ import logging
 import pygame
 
 from character import Character
-from display import Display, Sprite, detect_collisions
+from display import Display, detect_collisions
+from sprite import Sprite
 from constants import (LOOKING_DOWN, PLAYER_SPRITE, DEFAULT_FRAME_RATE, MOVEMENT_DEFAULT_SPEED, LOOKING_RIGHT,
                        LOOKING_LEFT, LOOKING_UP, TILES_SIZE)
 from map import Map
