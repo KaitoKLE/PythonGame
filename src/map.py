@@ -13,5 +13,5 @@ def load_tile_map(tile_map_id):
 
 class Map:
     def __init__(self, tile_map_id, npc_list):
-        self.TILE_MAP = load_tile_map(tile_map_id)
-        self.NPC_LIST = npc_list
+        self.tile_map = load_tile_map(tile_map_id)
+        self.npc_list = npc_list

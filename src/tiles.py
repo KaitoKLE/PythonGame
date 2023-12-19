@@ -44,13 +44,12 @@ class TileMap:
         else:
             self.rect = self.image.get_rect()
 
-    def render(self):
-        display = pygame.display.get_surface()  # surface principal
+    def render(self, surface):
         m, n = self.map.shape
         for i in range(m):
             for j in range(n):
                 tile = self.tile_set.tiles[self.map[i, j]]
-                display.blit(tile, (j * TILES_SIZE, i * TILES_SIZE))
+                surface.blit(tile, (j * TILES_SIZE, i * TILES_SIZE))
 
     def set_zero(self):
         """

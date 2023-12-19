@@ -25,7 +25,7 @@ def detect_collisions(ch1, ch2):
 
 
 class Display:
-    def __init__(self, game):
+    def __init__(self):
         self.width = W_MIN_WIDTH
         self.height = W_MIN_HEIGHT
         self.canvas = pygame.display.set_mode((self.width, self.height), False)
@@ -42,8 +42,8 @@ class Display:
         return int(self.width / 2), int(self.height / 2)
 
     def draw(self, c_map, player):
-        c_map.TILE_MAP.render()
-        for npc in c_map.NPC_LIST:
+        c_map.tile_map.render(self.canvas)
+        for npc in c_map.npc_list:
             self.draw_character(npc)
         self.draw_character(player)
         pygame.display.flip()
