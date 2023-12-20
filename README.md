@@ -41,9 +41,8 @@ The game has NPC sprites of different colors. If the player collides with an NPC
 
 **tiles.py** - Contains TileSet and TileMap classes for rendering tilemap backgrounds.
 
-## Customizing
-
-The game settings and sprite graphics can be customized by modifying the constants at the top of **game.py** and **display.py**. New NPC characters can be added by creating Character instances in Game.
+## Known prolems:
+- **X & Y inverted**: I accidentally inverted the X and Y coordinates in the game logic, so there will be some confusing logic there... The TileSet and TileMap classes are the only ones that process then correctly. Sorry about that, I promise I will fix it, eventually :P
 
 ## License
 

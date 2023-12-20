@@ -33,7 +33,7 @@ class TileSet:
 
 class TileMap:
     def __init__(self, tile_set, size, rect=None):
-        self.size = size
+        self.size = (size[1], size[0])  # I accidentally inverted the x and y in the game logic... sorry about that :P
         self.tile_set = tile_set
         self.map = numpy.zeros(size, dtype=int)
 

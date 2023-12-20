@@ -1,4 +1,4 @@
-from constants import MAIN_PATH
+from constants import MAIN_PATH, W_MIN_WIDTH, W_MIN_HEIGHT, TILES_SIZE
 from tiles import TileSet, TileMap
 
 
@@ -6,7 +6,7 @@ def load_map_data(map_id):
     if map_id == 0:  # test map, for debug purposes only
         ts = TileSet(f'{MAIN_PATH}\\resources\\test_tileset.png')
         ts.load()
-        tile_map = TileMap(ts, (10, 16))
+        tile_map = TileMap(ts, (int(W_MIN_WIDTH / TILES_SIZE), int(W_MIN_HEIGHT / TILES_SIZE)))
         tile_map.set_zero()
         return tile_map
 
@@ -18,7 +18,8 @@ class Map:
         
     @property
     def size(self):
-        return self.__tile_map.size
+        pos = self.__tile_map.size
+        return pos[1] - 1, pos[0] - 1  # I accidentally inverted the x and y in the game logic... sorry about that :P
     
     @property
     def npc(self):
