@@ -16,8 +16,8 @@ class Game:
         pygame.init()
         self.running = False
         self.clock = pygame.time.Clock()
-        self.display = Display()
         self.active_keys = set()
+        self.display = Display()
         self.player = Character(
             self.display.center, 'Player', Sprite(TILES_SIZE, LOOKING_DOWN, (255, 255, 255), PLAYER_SPRITE)
         )
@@ -90,7 +90,7 @@ class Game:
             character.y = 0
 
     def process_collisions(self):
-        for npc in self.current_map.npc_list:
+        for npc in self.current_map.npc:
             result = detect_collisions(self.player, npc)
             if result:
                 self.player.x = result[0]
