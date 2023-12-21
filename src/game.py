@@ -5,7 +5,7 @@ import pygame
 from character import Character
 from display import Display  # , detect_collisions
 from sprite import Sprite
-from constants import (LOOKING_DOWN, PLAYER_SPRITE, DEFAULT_FRAME_RATE, MOV_SPEED, LOOKING_RIGHT,
+from constants import (LOOKING_DOWN, PLAYER_SPRITE, DEFAULT_FRAME_RATE, MOVEMENT_DEFAULT_SPEED, LOOKING_RIGHT,
                        LOOKING_LEFT, LOOKING_UP, TILES_SIZE)
 from map import Map
 
@@ -50,7 +50,7 @@ class Game:
         self.running = False
     
     def update(self):
-        self.player.move()
+        # self.player.move()
         self.constraint(self.player)
         # self.process_collisions()
     
@@ -66,13 +66,16 @@ class Game:
         self.process_keyboard_events()
     
     def process_keyboard_events(self):
-        if self.player.speed == [0, 0]:
-            if pygame.K_RIGHT in self.active_keys:
-                self.player.speed = [MOV_SPEED, 0]
-                self.player.col += 1
-            elif pygame.K_LEFT in self.active_keys:
-                self.player.speed[0] = [-MOV_SPEED, 0]
-                self.player.col -= 1
+        if pygame.K_RIGHT in self.active_keys:
+            # self.player.speed = [MOVEMENT_DEFAULT_SPEED, 0]
+            self.player.col += 1
+            self.player.sprite_data.looking_at = LOOKING_RIGHT
+        elif pygame.K_LEFT in self.active_keys:
+            # self.player.speed[0] = [-MOVEMENT_DEFAULT_SPEED, 0]
+            self.player.col -= 1
+            self.player.sprite_data.looking_at = LOOKING_LEFT
+        else:
+            self.player.dx = 0
         # if pygame.K_UP in self.active_keys:
         #     # self.player.speed[1] = -MOVEMENT_DEFAULT_SPEED
         #     self.player.row -= 1

@@ -6,8 +6,8 @@ class Character:
         self.name = name
         self.__pos = list(pos)
         self.__speed = [0, 0]
-        self._x = pos[0] * TILES_SIZE
-        self._y = pos[1] * TILES_SIZE
+        self._x = 0
+        self._y = 0
         self.sprite_data = sprite
     
     @property
@@ -42,9 +42,6 @@ class Character:
     def speed(self, new_value):
         self.__speed = list(new_value)
 
-    def move(self):
-        if self.__pos != [int(self._x / TILES_SIZE), int(self._y / TILES_SIZE)]:
-            self._x += self.__speed[0]
-            self._y += self.__speed[1]
-        else:
-            self.__speed = [0, 0]
+    # def move(self):
+    #     self.__pos[0] += self.dx
+    #     self.__pos[1] += self.dy

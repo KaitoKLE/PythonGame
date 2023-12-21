@@ -4,7 +4,7 @@ MAIN_PATH = dirname(dirname(__file__))
 PLAYER_SPRITE = f'{MAIN_PATH}/resources/icon.png'
 
 # Game settings
-MOV_SPEED = 5
+MOVEMENT_DEFAULT_SPEED = 5
 DEFAULT_FRAME_RATE = 60
 
 # Display settings
