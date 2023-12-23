@@ -18,7 +18,7 @@ class Map:
         
     @property
     def size(self):
-        return self.__tile_map.size
+        return self.__tile_map.size[1] - 1, self.__tile_map.size[0] - 1
     
     @property
     def npc(self):

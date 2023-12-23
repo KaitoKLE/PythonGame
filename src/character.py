@@ -42,7 +42,8 @@ class Character:
     def speed(self):
         return self.__speed
 
-    def move(self):
+    def move(self, map_size):
+        self.constraint(map_size)
         # LEFT & RIGHT
         if self.col * TILES_SIZE > self.__xy[0] and abs(self.col * TILES_SIZE - self.__xy[0]) > MOV_SPEED:
             self.__speed = (MOV_SPEED, 0)
@@ -61,13 +62,12 @@ class Character:
         self.__xy[0] += self.__speed[0]
         self.__xy[1] += self.__speed[1]
     
-    def constraint(self):
-        pass
-        # if character.x > self.display.width - character.sprite.size:
-        #     character.x = self.display.width - character.sprite.size
-        # if character.x < 0:
-        #     character.x = 0
-        # if character.y > self.display.height - character.sprite.size:
-        #     character.y = self.display.height - character.sprite.size
-        # if character.y < 0:
-        #     character.y = 0
+    def constraint(self, map_size):
+        if self.col > map_size[0]:
+            self.col = map_size[0]
+        if self.col < 0:
+            self.col = 0
+        if self.row > map_size[1]:
+            self.row = map_size[1]
+        if self.row < 0:
+            self.row = 0

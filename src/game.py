@@ -37,8 +37,7 @@ class Game:
         self.running = False
 
     def update(self):
-        self.player.move()
-        self.player.constraint()
+        self.player.move(self.current_map.size)
         self.process_collisions()
 
     def events(self):
