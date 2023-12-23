@@ -38,7 +38,7 @@ class Game:
 
     def update(self):
         self.player.move()
-        self.constraint(self.player)
+        self.player.constraint()
         self.process_collisions()
 
     def events(self):
@@ -55,33 +55,13 @@ class Game:
     def process_keyboard_events(self):
         if self.player.speed == (0, 0):
             if pygame.K_RIGHT in self.active_keys:
-                self.player.speed = (MOV_SPEED, 0)
-        # if pygame.K_RIGHT in self.active_keys:
-        #     self.player.dx = MOVEMENT_DEFAULT_SPEED
-        #     self.player.sprite.looking_at = LOOKING_RIGHT
-        # elif pygame.K_LEFT in self.active_keys:
-        #     self.player.dx = -MOVEMENT_DEFAULT_SPEED
-        #     self.player.sprite.looking_at = LOOKING_LEFT
-        # else:
-        #     self.player.dx = 0
-        # if pygame.K_UP in self.active_keys:
-        #     self.player.dy = -MOVEMENT_DEFAULT_SPEED
-        #     self.player.sprite.looking_at = LOOKING_UP
-        # elif pygame.K_DOWN in self.active_keys:
-        #     self.player.dy = MOVEMENT_DEFAULT_SPEED
-        #     self.player.sprite.looking_at = LOOKING_DOWN
-        # else:
-        #     self.player.dy = 0
-
-    def constraint(self, character):
-        if character.x > self.display.width - character.sprite.size:
-            character.x = self.display.width - character.sprite.size
-        if character.x < 0:
-            character.x = 0
-        if character.y > self.display.height - character.sprite.size:
-            character.y = self.display.height - character.sprite.size
-        if character.y < 0:
-            character.y = 0
+                self.player.col += 1
+            elif pygame.K_LEFT in self.active_keys:
+                self.player.col -= 1
+            elif pygame.K_UP in self.active_keys:
+                self.player.row -= 1
+            elif pygame.K_DOWN in self.active_keys:
+                self.player.row += 1
 
     def process_collisions(self):
         pass

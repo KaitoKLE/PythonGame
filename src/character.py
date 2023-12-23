@@ -1,6 +1,6 @@
 import time
 
-from src.constants import TILES_SIZE
+from src.constants import TILES_SIZE, MOV_SPEED
 from src.sprite import Sprite
 
 
@@ -41,10 +41,33 @@ class Character:
     @property
     def speed(self):
         return self.__speed
-    
-    @speed.setter
-    def speed(self, value):
-        self.__speed = tuple(value)
 
     def move(self):
+        # LEFT & RIGHT
+        if self.col * TILES_SIZE > self.__xy[0] and abs(self.col * TILES_SIZE - self.__xy[0]) > MOV_SPEED:
+            self.__speed = (MOV_SPEED, 0)
+        elif self.col * TILES_SIZE < self.__xy[0] and abs(self.col * TILES_SIZE - self.__xy[0]) > MOV_SPEED:
+            self.__speed = (-MOV_SPEED, 0)
+        # UP & DOWN
+        elif self.row * TILES_SIZE < self.__xy[1] and abs(self.row * TILES_SIZE - self.__xy[1]) > MOV_SPEED:
+            self.__speed = (0, -MOV_SPEED)
+        elif self.row * TILES_SIZE > self.__xy[1] and abs(self.row * TILES_SIZE - self.__xy[1]) > MOV_SPEED:
+            self.__speed = (0, MOV_SPEED)
+        # NOT MOVING
+        else:
+            self.__speed = (0, 0)
+            self.__xy = [self.col * TILES_SIZE, self.row * TILES_SIZE]
+        # APPLY CHANGES
+        self.__xy[0] += self.__speed[0]
+        self.__xy[1] += self.__speed[1]
+    
+    def constraint(self):
         pass
+        # if character.x > self.display.width - character.sprite.size:
+        #     character.x = self.display.width - character.sprite.size
+        # if character.x < 0:
+        #     character.x = 0
+        # if character.y > self.display.height - character.sprite.size:
+        #     character.y = self.display.height - character.sprite.size
+        # if character.y < 0:
+        #     character.y = 0
