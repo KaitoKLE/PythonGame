@@ -44,7 +44,7 @@ class Display:
 
     def draw(self, c_map, player):
         c_map.tile_map.render(self.canvas)
-        for npc in c_map.npc:
+        for npc in c_map.npc_list:
             self.draw_character(npc)
         self.draw_character(player)
         pygame.display.flip()

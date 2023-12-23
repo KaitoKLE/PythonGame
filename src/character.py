@@ -5,8 +5,9 @@ from sprite import Sprite
 
 
 class Character:
-    def __init__(self, pos, name, size, color):
+    def __init__(self, char_id, pos, name, size, color):
         self.name = name
+        self.id = char_id
         self.__pos = list(pos)
         self.__xy = [pos[0] * TILES_SIZE, pos[1] * TILES_SIZE]
         self.__speed = (0, 0)
@@ -42,8 +43,8 @@ class Character:
     def speed(self):
         return self.__speed
     
-    def move(self, map_size):
-        self.__constraint(map_size)
+    def move(self, map_info):
+        self.__constraint(map_info.size)
         # LEFT & RIGHT
         if self.col * TILES_SIZE > self.__xy[0] and abs(self.col * TILES_SIZE - self.__xy[0]) > MOV_SPEED:
             self.__speed = (MOV_SPEED, 0)
@@ -73,18 +74,22 @@ class Character:
             self.row = 0
 
 
-class NPC(Character):
+class Player(Character):
     def __init__(self, pos, name, size, color):
-        super().__init__(pos, name, size, color)
-        self.__cooldown = 0
+        super().__init__(1, pos, name, size, color)
+
+
+class NPC(Character):
+    def __init__(self, char_id, pos, name, size, color):
+        super().__init__(char_id, pos, name, size, color)
+        self.__m_cooldown = 0
     
-    def move(self, map_size):
-        if self.speed == (0, 0) and self.__cooldown < 1:
+    def move(self, map_info):
+        if self.speed == (0, 0) and self.__m_cooldown < 1:
             options = (-1, 0, 1)
             if random.choice((True, False)):
                 self.col += random.choice(options)
             else:
                 self.row += random.choice(options)
-            self.__cooldown = random.randint(1, 500)
-        super().move(map_size)
-        self.__cooldown -= 1
+            self.__m_cooldown = random.randint(1, 500)
+        self.__m_cooldown -= 1

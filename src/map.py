@@ -7,7 +7,6 @@ def load_map_data(map_id):
         ts = TileSet(f'{MAIN_PATH}\\resources\\test_tileset.png')
         ts.load()
         tile_map = TileMap(ts, (10, 16))
-        tile_map.set_zero()
         return tile_map
 
 
@@ -21,7 +20,7 @@ class Map:
         return self.__tile_map.size[1] - 1, self.__tile_map.size[0] - 1
     
     @property
-    def npc(self):
+    def npc_list(self):
         return self.__npc_list
     
     @property

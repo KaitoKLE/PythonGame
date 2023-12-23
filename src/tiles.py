@@ -32,17 +32,14 @@ class TileSet:
 
 
 class TileMap:
-    def __init__(self, tile_set, size, rect=None):
+    def __init__(self, tile_set, size):
         self.size = size
         self.tile_set = tile_set
         self.map = numpy.zeros(size, dtype=int)
 
         h, w = self.size
         self.image = pygame.Surface((TILES_SIZE * w, TILES_SIZE * h))
-        if rect:
-            self.rect = pygame.Rect(rect)
-        else:
-            self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect()
 
     def render(self, surface):
         m, n = self.map.shape
@@ -50,12 +47,6 @@ class TileMap:
             for j in range(n):
                 tile = self.tile_set.tiles[self.map[i, j]]
                 surface.blit(tile, (j * TILES_SIZE, i * TILES_SIZE))
-
-    def set_zero(self):
-        """
-        For debugging purposes only
-        """
-        self.map = numpy.zeros(self.size, dtype=int)
 
     def __str__(self):
         return f'{self.__class__.__name__} {self.size}'
