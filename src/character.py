@@ -1,7 +1,5 @@
-import time
-
-from src.constants import TILES_SIZE, MOV_SPEED
-from src.sprite import Sprite
+from constants import TILES_SIZE, MOV_SPEED
+from sprite import Sprite
 
 
 class Character:
@@ -43,7 +41,7 @@ class Character:
         return self.__speed
 
     def move(self, map_size):
-        self.constraint(map_size)
+        self.__constraint(map_size)
         # LEFT & RIGHT
         if self.col * TILES_SIZE > self.__xy[0] and abs(self.col * TILES_SIZE - self.__xy[0]) > MOV_SPEED:
             self.__speed = (MOV_SPEED, 0)
@@ -62,7 +60,7 @@ class Character:
         self.__xy[0] += self.__speed[0]
         self.__xy[1] += self.__speed[1]
     
-    def constraint(self, map_size):
+    def __constraint(self, map_size):
         if self.col > map_size[0]:
             self.col = map_size[0]
         if self.col < 0:

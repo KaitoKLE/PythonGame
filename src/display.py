@@ -3,7 +3,7 @@ import logging
 import pygame
 import pygame.gfxdraw
 
-from constants import MAIN_PATH, W_MIN_WIDTH, W_MIN_HEIGHT, MOV_SPEED
+from constants import MAIN_PATH, W_MIN_WIDTH, W_MIN_HEIGHT
 
 
 def detect_collisions(ch1, ch2):
