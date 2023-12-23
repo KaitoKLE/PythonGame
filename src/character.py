@@ -19,17 +19,13 @@ class Character:
     def col(self):
         return self.__pos[0]
     
-    @col.setter
-    def col(self, value):
-        self.__pos = [value, self.row]
-    
     @property
     def row(self):
         return self.__pos[1]
     
-    @row.setter
-    def row(self, value):
-        self.__pos = [self.col, value]
+    @property
+    def pos(self):
+        return self.__pos
     
     @property
     def x(self):
@@ -42,6 +38,12 @@ class Character:
     @property
     def speed(self):
         return self.__speed
+    
+    def step(self, steps, matrix):
+        if matrix[self.col + steps[0]][self.row + steps[1]] == 0:
+            matrix[self.col][self.row] = 0
+            self.__pos[0] += steps[0]
+            self.__pos[1] += steps[1]
     
     def move(self, map_info):
         self.__constraint(map_info.size)
@@ -65,13 +67,13 @@ class Character:
     
     def __constraint(self, map_size):
         if self.col > map_size[0]:
-            self.col = map_size[0]
+            self.__pos[0] = map_size[0]
         if self.col < 0:
-            self.col = 0
+            self.__pos[0] = 0
         if self.row > map_size[1]:
-            self.row = map_size[1]
+            self.__pos[1] = map_size[1]
         if self.row < 0:
-            self.row = 0
+            self.__pos[1] = 0
 
 
 class Player(Character):
@@ -83,13 +85,18 @@ class NPC(Character):
     def __init__(self, char_id, pos, name, size, color):
         super().__init__(char_id, pos, name, size, color)
         self.__m_cooldown = 0
+        
+    def step(self, steps, matrix):
+        options = (-1, 0, 1)
+        if random.choice((True, False)):
+            steps = (random.choice(options), 0)
+        else:
+            steps = (0, random.choice(options))
+        super().step(steps, matrix)
     
     def move(self, map_info):
         if self.speed == (0, 0) and self.__m_cooldown < 1:
-            options = (-1, 0, 1)
-            if random.choice((True, False)):
-                self.col += random.choice(options)
-            else:
-                self.row += random.choice(options)
+            self.step(None, map_info.matrix)
             self.__m_cooldown = random.randint(1, 500)
         self.__m_cooldown -= 1
+        super().move(map_info)

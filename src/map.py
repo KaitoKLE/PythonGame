@@ -1,3 +1,5 @@
+import numpy
+
 from constants import MAIN_PATH
 from tiles import TileSet, TileMap
 
@@ -13,6 +15,7 @@ def load_map_data(map_id):
 class Map:
     def __init__(self, map_id, npc_list):
         self.__tile_map = load_map_data(map_id)
+        self.matrix = numpy.zeros((self.__tile_map.size[1], self.__tile_map.size[0]))
         self.__npc_list = npc_list
         
     @property

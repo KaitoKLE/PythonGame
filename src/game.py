@@ -33,7 +33,7 @@ class Game:
                 self.display.draw(self.current_map, self.player)
             self.clock.tick(FRAME_RATE)
         logging.info('The game stopped running')
-    
+
     def stop(self):
         logging.info('Stopping game')
         self.running = False
@@ -41,7 +41,7 @@ class Game:
     def update(self):
         for char in [self.player] + self.current_map.npc_list:
             char.move(self.current_map)
-        self.process_collisions()
+            self.current_map.matrix[char.col][char.row] = char.id
     
     def events(self):
         for event in pygame.event.get():
@@ -57,22 +57,17 @@ class Game:
     def keyboard_events(self):
         if self.player.speed == (0, 0) and not self.pause:
             if pygame.K_RIGHT in self.active_keys:
-                self.player.col += 1
+                step = (1, 0)
             elif pygame.K_LEFT in self.active_keys:
-                self.player.col -= 1
+                step = (-1, 0)
             elif pygame.K_UP in self.active_keys:
-                self.player.row -= 1
+                step = (0, -1)
             elif pygame.K_DOWN in self.active_keys:
-                self.player.row += 1
+                step = (0, 1)
+            else:
+                step = (0, 0)
+            self.player.step(step, self.current_map.matrix)
         if pygame.K_ESCAPE in self.active_keys:
             self.pause = True
         else:
             self.pause = False
-    
-    def process_collisions(self):
-        pass
-        # for npc in self.current_map.npc:
-        #     result = detect_collisions(self.player, npc)
-        #     if result:
-        #         self.player.x = result[0]
-        #         self.player.y = result[1]
