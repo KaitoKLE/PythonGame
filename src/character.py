@@ -1,3 +1,5 @@
+import random
+
 from constants import TILES_SIZE, MOV_SPEED
 from sprite import Sprite
 
@@ -27,11 +29,11 @@ class Character:
     @row.setter
     def row(self, value):
         self.__pos = [self.col, value]
-
+    
     @property
     def x(self):
         return self.__xy[0]
-
+    
     @property
     def y(self):
         return self.__xy[1]
@@ -39,7 +41,7 @@ class Character:
     @property
     def speed(self):
         return self.__speed
-
+    
     def move(self, map_size):
         self.__constraint(map_size)
         # LEFT & RIGHT
@@ -69,3 +71,20 @@ class Character:
             self.row = map_size[1]
         if self.row < 0:
             self.row = 0
+
+
+class NPC(Character):
+    def __init__(self, pos, name, size, color):
+        super().__init__(pos, name, size, color)
+        self.__cooldown = 0
+    
+    def move(self, map_size):
+        if self.speed == (0, 0) and self.__cooldown < 1:
+            options = (-1, 0, 1)
+            if random.choice((True, False)):
+                self.col += random.choice(options)
+            else:
+                self.row += random.choice(options)
+            self.__cooldown = random.randint(1, 500)
+        super().move(map_size)
+        self.__cooldown -= 1
