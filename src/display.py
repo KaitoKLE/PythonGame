@@ -3,25 +3,26 @@ import logging
 import pygame
 import pygame.gfxdraw
 
-from constants import MAIN_PATH, W_MIN_WIDTH, W_MIN_HEIGHT, MOVEMENT_DEFAULT_SPEED
+from constants import MAIN_PATH, W_MIN_WIDTH, W_MIN_HEIGHT, MOV_SPEED
 
 
 def detect_collisions(ch1, ch2):
-    prev_movement_dir = (ch1.dx, ch1.dy)
-    c1_rect = pygame.Rect(ch1.x, ch1.y, ch1.sprite_data.size, ch1.sprite_data.size)
-    c2_rect = pygame.Rect(ch2.x, ch2.y, ch2.sprite_data.size, ch2.sprite_data.size)
-    if c1_rect.colliderect(c2_rect):
-        ch1.dx = 0
-        ch1.dy = 0
-        if prev_movement_dir[0] < 0:  # left
-            c1_rect.move_ip(MOVEMENT_DEFAULT_SPEED, 0)
-        elif prev_movement_dir[0] > 0:  # right
-            c1_rect.move_ip(-MOVEMENT_DEFAULT_SPEED, 0)
-        if prev_movement_dir[1] < 0:  # up
-            c1_rect.move_ip(0, MOVEMENT_DEFAULT_SPEED)
-        elif prev_movement_dir[1] > 0:  # down
-            c1_rect.move_ip(0, -MOVEMENT_DEFAULT_SPEED)
-        return c1_rect.x, c1_rect.y
+    pass
+    # prev_movement_dir = (ch1.dx, ch1.dy)
+    # c1_rect = pygame.Rect(ch1.x, ch1.y, ch1.sprite.size, ch1.sprite.size)
+    # c2_rect = pygame.Rect(ch2.x, ch2.y, ch2.sprite.size, ch2.sprite.size)
+    # if c1_rect.colliderect(c2_rect):
+    #     ch1.dx = 0
+    #     ch1.dy = 0
+    #     if prev_movement_dir[0] < 0:  # left
+    #         c1_rect.move_ip(MOVEMENT_DEFAULT_SPEED, 0)
+    #     elif prev_movement_dir[0] > 0:  # right
+    #         c1_rect.move_ip(-MOVEMENT_DEFAULT_SPEED, 0)
+    #     if prev_movement_dir[1] < 0:  # up
+    #         c1_rect.move_ip(0, MOVEMENT_DEFAULT_SPEED)
+    #     elif prev_movement_dir[1] > 0:  # down
+    #         c1_rect.move_ip(0, -MOVEMENT_DEFAULT_SPEED)
+    #     return c1_rect.x, c1_rect.y
 
 
 class Display:
@@ -58,8 +59,8 @@ class Display:
         self.height = new_h
 
     def draw_character(self, character):
-        character.sprite_data.sprite = pygame.draw.rect(
-            self.canvas, character.sprite_data.color, (character.x, character.y, character.sprite_data.size,
-                                                       character.sprite_data.size))
+        character.sprite.sprite = pygame.draw.rect(
+            self.canvas, character.sprite.color, (character.x, character.y, character.sprite.size,
+                                                  character.sprite.size))
 
 
