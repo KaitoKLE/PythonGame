@@ -3,10 +3,8 @@ import logging
 import pygame
 
 from character import Character
-from display import Display, detect_collisions
-from sprite import Sprite
-from constants import (LOOKING_DOWN, PLAYER_SPRITE, DEFAULT_FRAME_RATE, MOV_SPEED, LOOKING_RIGHT,
-                       LOOKING_LEFT, LOOKING_UP, TILES_SIZE)
+from display import Display
+from constants import FRAME_RATE, TILES_SIZE
 from map import Map
 
 
@@ -29,7 +27,7 @@ class Game:
             self.events()
             self.update()
             self.display.draw(self.current_map, self.player)
-            self.clock.tick(DEFAULT_FRAME_RATE)
+            self.clock.tick(FRAME_RATE)
         logging.info('The game stopped running')
 
     def stop(self):

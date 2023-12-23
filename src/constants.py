@@ -5,7 +5,7 @@ PLAYER_SPRITE = f'{MAIN_PATH}/resources/icon.png'
 
 # Game settings
 MOV_SPEED = 3
-DEFAULT_FRAME_RATE = 60
+FRAME_RATE = 60
 
 # Display settings
 W_MIN_WIDTH = 1024
