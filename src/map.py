@@ -13,18 +13,24 @@ def load_map_data(map_id):
 
 class Map:
     def __init__(self, map_id, npc_list):
-        self.__tile_map = load_map_data(map_id)
-        self.matrix = numpy.zeros((self.__tile_map.size[1], self.__tile_map.size[0]))
+        tile_map = load_map_data(map_id)
+        self.__image = tile_map.image
+        self.__size = tile_map.size[1] - 1, tile_map.size[0] - 1
+        self.__matrix = numpy.zeros((tile_map.size[1], tile_map.size[0]))
         self.__npc_list = npc_list
-        
-    @property
-    def size(self):
-        return self.__tile_map.size[1] - 1, self.__tile_map.size[0] - 1
     
     @property
     def npc_list(self):
         return self.__npc_list
     
     @property
-    def tile_map(self):
-        return self.__tile_map
+    def image(self):
+        return self.__image
+    
+    @property
+    def size(self):
+        return self.__size
+    
+    @property
+    def matrix(self):
+        return self.__matrix

@@ -24,7 +24,7 @@ class Display:
         return int(self.width / 2), int(self.height / 2)
 
     def draw(self, map_to_draw, player):
-        self.canvas.blit(map_to_draw.tile_map.image, (0, 0))
+        self.canvas.blit(map_to_draw.image, (0, 0))
         for npc in map_to_draw.npc_list:
             self.draw_character(npc)
         self.draw_character(player)
