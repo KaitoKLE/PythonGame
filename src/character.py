@@ -40,10 +40,14 @@ class Character:
         return self.__speed
     
     def step(self, steps, matrix):
-        if matrix[self.col + steps[0]][self.row + steps[1]] == 0:
-            matrix[self.col][self.row] = 0
-            self.__pos[0] += steps[0]
-            self.__pos[1] += steps[1]
+        try:
+            if matrix[self.col + steps[0]][self.row + steps[1]] == 0:
+                matrix[self.col][self.row] = 0
+                self.__pos[0] += steps[0]
+                self.__pos[1] += steps[1]
+                matrix[self.col][self.row] = self.id
+        except IndexError:
+            pass
     
     def move(self, map_info):
         self.__constraint(map_info.size)

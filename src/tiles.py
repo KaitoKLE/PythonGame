@@ -6,29 +6,18 @@ from constants import TILES_SIZE
 
 class TileSet:
     def __init__(self, file, size=(TILES_SIZE, TILES_SIZE), margin=2, spacing=1):
-        self.file = file
-        self.size = size
-        self.margin = margin
-        self.spacing = spacing
-        self.image = pygame.image.load(file)
-        self.rect = self.image.get_rect()
         self.tiles = []
-        self.load()
-
-    def load(self):
-        self.tiles = []
-        x0 = y0 = self.margin
-        w, h = self.rect.size
-        dx = self.size[0] + self.spacing
-        dy = self.size[1] + self.spacing
+        image = pygame.image.load(file)
+        rect = image.get_rect()
+        x0 = y0 = margin
+        w, h = rect.size
+        dx = size[0] + spacing
+        dy = size[1] + spacing
         for x in range(x0, w, dx):
             for y in range(y0, h, dy):
-                tile = pygame.Surface(self.size)
-                tile.blit(self.image, (0, 0), (x, y, *self.size))
+                tile = pygame.Surface(size)
+                tile.blit(image, (0, 0), (x, y, *size))
                 self.tiles.append(tile)
-
-    def __str__(self):
-        return f'{self.__class__.__name__} file: {self.file} tile: {self.size}'
 
 
 class TileMap:
@@ -36,17 +25,9 @@ class TileMap:
         self.size = size
         self.tile_set = tile_set
         self.map = numpy.zeros(size, dtype=int)
-
-        h, w = self.size
-        self.image = pygame.Surface((TILES_SIZE * w, TILES_SIZE * h))
-        self.rect = self.image.get_rect()
-
-    def render(self, surface):
+        self.image = pygame.Surface((TILES_SIZE * self.size[1], TILES_SIZE * self.size[0]))
         m, n = self.map.shape
         for i in range(m):
             for j in range(n):
                 tile = self.tile_set.tiles[self.map[i, j]]
-                surface.blit(tile, (j * TILES_SIZE, i * TILES_SIZE))
-
-    def __str__(self):
-        return f'{self.__class__.__name__} {self.size}'
+                self.image.blit(tile, (j * TILES_SIZE, i * TILES_SIZE))

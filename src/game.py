@@ -41,7 +41,6 @@ class Game:
     def update(self):
         for char in [self.player] + self.current_map.npc_list:
             char.move(self.current_map)
-            self.current_map.matrix[char.col][char.row] = char.id
     
     def events(self):
         for event in pygame.event.get():

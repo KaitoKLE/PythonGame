@@ -23,9 +23,9 @@ class Display:
     def center(self):
         return int(self.width / 2), int(self.height / 2)
 
-    def draw(self, c_map, player):
-        c_map.tile_map.render(self.canvas)
-        for npc in c_map.npc_list:
+    def draw(self, map_to_draw, player):
+        self.canvas.blit(map_to_draw.tile_map.image, (0, 0))
+        for npc in map_to_draw.npc_list:
             self.draw_character(npc)
         self.draw_character(player)
         pygame.display.flip()
