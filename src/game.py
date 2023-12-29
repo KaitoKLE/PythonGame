@@ -2,9 +2,9 @@ import logging
 
 import pygame
 
-from character import NPC, Player
-from display import Display
+from character import Player
 from constants import FRAME_RATE, TILES_SIZE
+from display import Display
 from map import Map
 
 
@@ -18,9 +18,7 @@ class Game:
         self.active_keys = set()
         self.display = Display()
         self.player = Player((8, 4), 'Player', TILES_SIZE, (255, 255, 255))
-        self.current_map = Map(0, [
-            NPC(2, (3, 3), 'Red NPC', TILES_SIZE, (255, 0, 0))
-        ])
+        self.current_map = Map(0, [])
         logging.info('The game is now ready to start running')
     
     def loop(self):
@@ -33,7 +31,7 @@ class Game:
                 self.display.draw(self.current_map, self.player)
             self.clock.tick(FRAME_RATE)
         logging.info('The game stopped running')
-
+    
     def stop(self):
         logging.info('Stopping game')
         self.running = False

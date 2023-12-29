@@ -11,8 +11,6 @@ class Character:
         self.__pos = list(pos)
         self.__xy = [pos[0] * TILES_SIZE, pos[1] * TILES_SIZE]
         self.__speed = (0, 0)
-        self.dx = 0
-        self.dy = 0
         self.sprite = Sprite(size, color)
     
     @property
