@@ -2,10 +2,11 @@ import logging
 
 import pygame
 
-from character import Player
+from character import Player, NPC
 from constants import FRAME_RATE, TILES_SIZE
 from display import Display
 from map import Map
+from src.camera import Camera
 
 
 class Game:
@@ -17,8 +18,11 @@ class Game:
         self.clock = pygame.time.Clock()
         self.active_keys = set()
         self.display = Display()
-        self.player = Player((8, 4), 'Player', TILES_SIZE, (255, 255, 255))
-        self.current_map = Map(0, [])
+        self.player = Player((8, 5), 'Player', TILES_SIZE, (255, 255, 255))
+        self.camera = Camera(self.display.width, self.display.height, self.player)
+        self.current_map = Map(0, [
+            NPC(2, (3, 4), 'NPC', 12, 12)
+        ])
         logging.info('The game is now ready to start running')
     
     def loop(self):
@@ -28,7 +32,7 @@ class Game:
             self.events()
             if not self.pause:
                 self.update()
-                self.display.draw(self.current_map, self.player)
+                self.display.draw(self.current_map, self.player, self.camera)
             self.clock.tick(FRAME_RATE)
         logging.info('The game stopped running')
     
@@ -39,6 +43,7 @@ class Game:
     def update(self):
         for char in [self.player] + self.current_map.npc_list:
             char.move(self.current_map)
+        self.camera.update()
     
     def events(self):
         for event in pygame.event.get():

@@ -1,7 +1,8 @@
 import random
 
+import pygame.image
+
 from constants import TILES_SIZE, MOV_SPEED
-from sprite import Sprite
 
 
 class Character:
@@ -11,7 +12,7 @@ class Character:
         self.__pos = list(pos)
         self.__xy = [pos[0] * TILES_SIZE, pos[1] * TILES_SIZE]
         self.__speed = (0, 0)
-        self.sprite = Sprite(size, color)
+        self.sprite = pygame.image.load('D:\\Luis Ernesto\\Documentos\\Proyectos\\PythonGame\\resources\\py.png')
     
     @property
     def col(self):

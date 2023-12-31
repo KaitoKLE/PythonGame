@@ -23,11 +23,13 @@ class Display:
     def center(self):
         return int(self.width / 2), int(self.height / 2)
 
-    def draw(self, map_to_draw, player):
-        self.canvas.blit(map_to_draw.image, (0, 0))
-        for npc in map_to_draw.npc_list:
-            self.draw_character(npc)
-        self.draw_character(player)
+    def draw(self, map_to_draw, player, camera):
+        self.canvas.fill('black')
+        map_obj = map_to_draw.image.copy()
+        map_obj.blit(player.sprite, (player.x, player.y))
+        for person in [player] + map_to_draw.npc_list:
+            map_obj.blit(person.sprite, (person.x, person.y))
+        self.canvas.blit(map_obj, (camera.x, camera.y))
         pygame.display.flip()
 
     def background(self, color):
@@ -38,10 +40,3 @@ class Display:
         self.canvas = pygame.display.set_mode((new_w, new_h), False)
         self.width = new_w
         self.height = new_h
-
-    def draw_character(self, character):
-        character.sprite.sprite = pygame.draw.rect(
-            self.canvas, character.sprite.color, (character.x, character.y, character.sprite.size,
-                                                  character.sprite.size))
-
-

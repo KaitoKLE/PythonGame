@@ -7,7 +7,7 @@ from tiles import TileSet, TileMap
 def load_map_data(map_id):
     if map_id == 0:  # test map, for debug purposes only
         ts = TileSet(f'{MAIN_PATH}\\resources\\test_tileset.png')
-        tile_map = TileMap(ts, (10, 16))
+        tile_map = TileMap(ts, (14, 20))
         return tile_map
 
 
