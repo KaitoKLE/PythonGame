@@ -3,7 +3,7 @@ import logging
 import pygame
 
 from character import Player, NPC
-from constants import FRAME_RATE, TILES_SIZE
+from constants import FRAME_RATE
 from display import Display
 from map import Map
 from src.camera import Camera
@@ -18,10 +18,10 @@ class Game:
         self.clock = pygame.time.Clock()
         self.active_keys = set()
         self.display = Display()
-        self.player = Player((8, 5), 'Player', TILES_SIZE, (255, 255, 255))
+        self.player = Player((8, 5), 'Player')
         self.camera = Camera(self.display.width, self.display.height, self.player)
         self.current_map = Map(0, [
-            NPC(2, (3, 4), 'NPC', 12, 12)
+            NPC(2, (3, 4), 'NPC')
         ])
         logging.info('The game is now ready to start running')
     

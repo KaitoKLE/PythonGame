@@ -6,7 +6,7 @@ from constants import TILES_SIZE, MOV_SPEED
 
 
 class Character:
-    def __init__(self, char_id, pos, name, size, color):
+    def __init__(self, char_id, pos, name):
         self.name = name
         self.id = char_id
         self.__pos = list(pos)
@@ -80,13 +80,13 @@ class Character:
 
 
 class Player(Character):
-    def __init__(self, pos, name, size, color):
-        super().__init__(1, pos, name, size, color)
+    def __init__(self, pos, name):
+        super().__init__(1, pos, name)
 
 
 class NPC(Character):
-    def __init__(self, char_id, pos, name, size, color):
-        super().__init__(char_id, pos, name, size, color)
+    def __init__(self, char_id, pos, name):
+        super().__init__(char_id, pos, name)
         self.__m_cooldown = 0
         
     def step(self, steps, matrix):
