@@ -19,8 +19,8 @@ def launch():
         logging.exception(f'The game crashed: {e}')
 
 
-if __name__ == '__main__':
-    init_logging()
-    launch()
-    logging.info(f'Program is finishing\n' + '=' * 100)
-    logging.shutdown()
+# run the game
+init_logging()
+launch()
+logging.info(f'Program is finishing\n' + '=' * 100)
+logging.shutdown()

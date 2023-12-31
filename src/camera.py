@@ -1,6 +1,6 @@
 from pygame import Rect
 
-from src.constants import TILES_SIZE
+from constants import TILES_SIZE
 
 
 class Camera:

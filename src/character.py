@@ -49,7 +49,7 @@ class Character:
             pass
     
     def move(self, map_info):
-        self.__constraint(map_info.size)
+        self.__constraint(map_info.size_matrix)
         # LEFT & RIGHT
         if self.col * TILES_SIZE > self.__xy[0] and abs(self.col * TILES_SIZE - self.__xy[0]) > MOV_SPEED:
             self.__speed = (MOV_SPEED, 0)
@@ -99,7 +99,7 @@ class NPC(Character):
     
     def move(self, map_info):
         if self.speed == (0, 0) and self.__m_cooldown < 1:
-            self.step(None, map_info.matrix)
+            self.step(None, map_info.collisions)
             self.__m_cooldown = random.randint(1, 500)
         self.__m_cooldown -= 1
         super().move(map_info)

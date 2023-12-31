@@ -21,7 +21,9 @@ class Game:
         self.player = Player((8, 5), 'Player')
         self.camera = Camera(self.display.width, self.display.height, self.player)
         self.current_map = Map(0, [
-            NPC(2, (3, 4), 'NPC')
+            NPC(2, (3, 4), 'NPC 1'),
+            NPC(3, (6, 10), 'NPC 2'),
+            NPC(4, (11, 12), 'NPC 3')
         ])
         logging.info('The game is now ready to start running')
     
@@ -57,6 +59,10 @@ class Game:
         self.keyboard_events()
     
     def keyboard_events(self):
+        # if pygame.K_j in self.active_keys:
+        #     self.camera.focus(self.current_map.npc_list[1])
+        # if pygame.K_k in self.active_keys:
+        #     self.camera.focus(self.player)
         if self.player.speed == (0, 0) and not self.pause:
             if pygame.K_RIGHT in self.active_keys:
                 step = (1, 0)
@@ -68,7 +74,7 @@ class Game:
                 step = (0, 1)
             else:
                 step = (0, 0)
-            self.player.step(step, self.current_map.matrix)
+            self.player.step(step, self.current_map.collisions)
         if pygame.K_ESCAPE in self.active_keys:
             self.pause = True
         else:

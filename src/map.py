@@ -15,8 +15,8 @@ class Map:
     def __init__(self, map_id, npc_list):
         tile_map = load_map_data(map_id)
         self.__image = tile_map.image
-        self.__size = tile_map.size[1] - 1, tile_map.size[0] - 1
-        self.__matrix = numpy.zeros((tile_map.size[1], tile_map.size[0]))
+        self.__size_matrix = tile_map.size[1] - 1, tile_map.size[0] - 1
+        self.__collisions = numpy.zeros((tile_map.size[1], tile_map.size[0]))
         self.__npc_list = npc_list
     
     @property
@@ -28,9 +28,13 @@ class Map:
         return self.__image
     
     @property
-    def size(self):
-        return self.__size
+    def size_matrix(self):
+        return self.__size_matrix
     
     @property
-    def matrix(self):
-        return self.__matrix
+    def size_pixels(self):
+        return self.image.get_size()
+    
+    @property
+    def collisions(self):
+        return self.__collisions
