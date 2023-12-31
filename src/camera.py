@@ -1,5 +1,7 @@
 from pygame import Rect
 
+from src.constants import TILES_SIZE
+
 
 class Camera:
     def __init__(self, w, h, character):
@@ -8,11 +10,11 @@ class Camera:
     
     @property
     def x(self):
-        return self.__rect.x
+        return self.__rect.x - TILES_SIZE / 2
     
     @property
     def y(self):
-        return self.__rect.y
+        return self.__rect.y - TILES_SIZE / 2
     
     def update(self):
         self.__rect.x = -(self.__focus.x - self.__rect.width / 2)
