@@ -20,11 +20,7 @@ class Game:
         self.display = Display()
         self.player = Player((8, 5), 'Player')
         self.camera = Camera(self.display.width, self.display.height, self.player)
-        self.current_map = Map(0, [
-            NPC(2, (3, 4), 'NPC 1'),
-            NPC(3, (6, 10), 'NPC 2'),
-            NPC(4, (11, 12), 'NPC 3')
-        ])
+        self.current_map = Map(0)
         logging.info('The game is now ready to start running')
     
     def loop(self):

@@ -40,16 +40,16 @@ class Character:
     
     def step(self, steps, matrix):
         try:
-            if matrix[self.col + steps[0]][self.row + steps[1]] == 0:
-                matrix[self.col][self.row] = 0
+            if matrix[self.col + steps[0], self.row + steps[1]] == 0:
+                matrix[self.col, self.row] = 0
                 self.__pos[0] += steps[0]
                 self.__pos[1] += steps[1]
-                matrix[self.col][self.row] = self.id
+                matrix[self.col, self.row] = self.id
         except IndexError:
             pass
     
     def move(self, map_info):
-        self.__constraint(map_info.size_matrix)
+        self.__constraint(map_info.collisions)
         # LEFT & RIGHT
         if self.col * TILES_SIZE > self.__xy[0] and abs(self.col * TILES_SIZE - self.__xy[0]) > MOV_SPEED:
             self.__speed = (MOV_SPEED, 0)
@@ -68,7 +68,8 @@ class Character:
         self.__xy[0] += self.__speed[0]
         self.__xy[1] += self.__speed[1]
     
-    def __constraint(self, map_size):
+    def __constraint(self, collisions):
+        map_size = collisions.shape
         if self.col > map_size[0]:
             self.__pos[0] = map_size[0]
         if self.col < 0:

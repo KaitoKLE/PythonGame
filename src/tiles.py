@@ -1,7 +1,11 @@
 import numpy
 import pygame
 
-from constants import TILES_SIZE
+from constants import TILES_SIZE, MAIN_PATH
+
+TS_PATHS = [
+    f'{MAIN_PATH}\\resources\\test_tileset.png'
+]
 
 
 class TileSet:
@@ -23,7 +27,7 @@ class TileSet:
 class TileMap:
     def __init__(self, tile_set, size):
         self.size = size
-        self.tile_set = tile_set
+        self.tile_set = TileSet(TS_PATHS[tile_set])
         self.map = numpy.zeros(size, dtype=int)
         self.image = pygame.Surface((TILES_SIZE * self.size[1], TILES_SIZE * self.size[0]))
         m, n = self.map.shape
