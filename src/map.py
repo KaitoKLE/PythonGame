@@ -1,13 +1,15 @@
 import numpy
 
+from src.data_manager import DataManager
 from tiles import TileMap
 
 
 class Map:
     def __init__(self, map_id):
-        self.__tile_map = TileMap(map_id, (14, 20))
-        self.__collisions = numpy.zeros((self.__tile_map.size[1], self.__tile_map.size[0]))
-        self.__npc_list = []
+        map_data = DataManager.get_map_data(map_id)
+        self.__tile_map = TileMap(map_data.tile_set_path, map_data.map_shape)
+        self.__collisions = map_data.collision
+        self.__npc_list = map_data.npc
     
     @property
     def npc_list(self):

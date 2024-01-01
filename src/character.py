@@ -74,8 +74,8 @@ class Player(Character):
 
 
 class NPC(Character):
-    def __init__(self, char_id, pos, name):
-        super().__init__(char_id, pos, name)
+    def __init__(self, char_id, pos):
+        super().__init__(char_id, pos, f'NPC {char_id}')
         self.__m_cooldown = 0
         
     def step(self, steps, collisions):
