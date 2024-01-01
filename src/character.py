@@ -38,18 +38,17 @@ class Character:
     def speed(self):
         return self.__speed
     
-    def step(self, steps, matrix):
-        try:
-            if matrix[self.col + steps[0], self.row + steps[1]] == 0:
-                matrix[self.col, self.row] = 0
+    def step(self, steps, collisions):
+        x = self.col + steps[0]
+        y = self.row + steps[1]
+        if x in range(collisions.shape[0]) and y in range(collisions.shape[1]):
+            if collisions[x, y] == 0:
+                collisions[self.col, self.row] = 0
                 self.__pos[0] += steps[0]
                 self.__pos[1] += steps[1]
-                matrix[self.col, self.row] = self.id
-        except IndexError:
-            pass
+                collisions[self.col, self.row] = self.id
     
-    def move(self, map_info):
-        self.__constraint(map_info.collisions)
+    def update(self, map_info):
         # LEFT & RIGHT
         if self.col * TILES_SIZE > self.__xy[0] and abs(self.col * TILES_SIZE - self.__xy[0]) > MOV_SPEED:
             self.__speed = (MOV_SPEED, 0)
@@ -67,17 +66,6 @@ class Character:
         # APPLY CHANGES
         self.__xy[0] += self.__speed[0]
         self.__xy[1] += self.__speed[1]
-    
-    def __constraint(self, collisions):
-        map_size = collisions.shape
-        if self.col > map_size[0]:
-            self.__pos[0] = map_size[0]
-        if self.col < 0:
-            self.__pos[0] = 0
-        if self.row > map_size[1]:
-            self.__pos[1] = map_size[1]
-        if self.row < 0:
-            self.__pos[1] = 0
 
 
 class Player(Character):
@@ -90,17 +78,17 @@ class NPC(Character):
         super().__init__(char_id, pos, name)
         self.__m_cooldown = 0
         
-    def step(self, steps, matrix):
+    def step(self, steps, collisions):
         options = (-1, 0, 1)
         if random.choice((True, False)):
             steps = (random.choice(options), 0)
         else:
             steps = (0, random.choice(options))
-        super().step(steps, matrix)
+        super().step(steps, collisions)
     
-    def move(self, map_info):
+    def update(self, map_info):
         if self.speed == (0, 0) and self.__m_cooldown < 1:
             self.step(None, map_info.collisions)
             self.__m_cooldown = random.randint(1, 500)
         self.__m_cooldown -= 1
-        super().move(map_info)
+        super().update(map_info)

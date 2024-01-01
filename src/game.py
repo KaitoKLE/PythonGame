@@ -40,7 +40,7 @@ class Game:
     
     def update(self):
         for char in [self.player] + self.current_map.npc_list:
-            char.move(self.current_map)
+            char.update(self.current_map)
         self.camera.update()
     
     def events(self):
@@ -59,6 +59,13 @@ class Game:
         #     self.camera.focus(self.current_map.npc_list[1])
         # if pygame.K_k in self.active_keys:
         #     self.camera.focus(self.player)
+        self.directional_input()
+        if pygame.K_ESCAPE in self.active_keys:
+            self.pause = True
+        else:
+            self.pause = False
+    
+    def directional_input(self):
         if self.player.speed == (0, 0) and not self.pause:
             if pygame.K_RIGHT in self.active_keys:
                 step = (1, 0)
@@ -69,9 +76,5 @@ class Game:
             elif pygame.K_DOWN in self.active_keys:
                 step = (0, 1)
             else:
-                step = (0, 0)
+                return
             self.player.step(step, self.current_map.collisions)
-        if pygame.K_ESCAPE in self.active_keys:
-            self.pause = True
-        else:
-            self.pause = False
