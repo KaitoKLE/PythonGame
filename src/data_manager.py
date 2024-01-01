@@ -2,11 +2,10 @@ import logging
 
 import numpy
 
+from character import NPC
 from file_scanner import FileScanner
 from src.c_dataclasses import MapData
 from src.constants import MAIN_PATH
-from character import NPC
-
 
 # KEYS, should be the same as the ones in the involved json file
 NAME = 'name'

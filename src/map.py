@@ -1,5 +1,3 @@
-import numpy
-
 from src.data_manager import DataManager
 from tiles import TileMap
 
