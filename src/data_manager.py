@@ -14,6 +14,7 @@ NPCS = 'npc'
 COLLISION = 'collision'
 SHAPE_Z0 = 'map_shape_z0'
 SHAPE_Z1 = 'map_shape_z1'
+SHAPE_Z2 = 'map_shape_z2'
 
 
 class DataManager:
@@ -46,4 +47,5 @@ class DataManager:
         )
         shape_z0 = numpy.array(list(cls.maps[map_id][SHAPE_Z0]))
         shape_z1 = numpy.array(list(cls.maps[map_id][SHAPE_Z1]))
-        return MapData(name, ts, npc, col, shape_z0, shape_z1)
+        shape_z2 = numpy.array(list(cls.maps[map_id][SHAPE_Z2]))
+        return MapData(name, ts, npc, col, shape_z0, shape_z1, shape_z2)

@@ -26,6 +26,7 @@ class Display:
         for person in [player] + map_to_draw.npc_list:
             map_obj.blit(person.sprite, (person.x, person.y))
         map_obj.blit(map_to_draw.image_z1, (0, 0))
+        map_obj.blit(map_to_draw.image_z2, (0, 0))
         self.canvas.blit(map_obj, (camera.x, camera.y))
         pygame.display.flip()
 

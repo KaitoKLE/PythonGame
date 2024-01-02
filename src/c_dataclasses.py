@@ -11,3 +11,4 @@ class MapData:
     collision: numpy.array
     map_shape_z0: numpy.array
     map_shape_z1: numpy.array
+    map_shape_z2: numpy.array
