@@ -23,7 +23,9 @@ class DataManager:
         logging.info(f'Scanning data files...')
         cls.maps = FileScanner.scan_json('\\'.join((MAIN_PATH, 'resources/data_files/maps.json')))
         if None in [cls.maps]:
+            logging.critical('At least one file could not be scanned')
             return False
+        logging.info('Successfully done')
         return True
     
     @classmethod

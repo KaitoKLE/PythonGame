@@ -1,6 +1,7 @@
 import logging
 
 from game import Game
+from src.constants import GAME_NAME
 from src.data_manager import DataManager
 
 
@@ -18,9 +19,10 @@ try:
     if DataManager.init():
         Game().loop()
     else:
-        logging.critical('The game cannot run in this state...')
+        logging.critical('Error while scanning data files')
 except Exception as e:
     print('THE PROGRAM HAS CRASHED!')
     logging.exception(f'The game crashed: {e}')
-logging.info(f'Program is finishing\n' + '=' * 100)
+    logging.critical('THE GAME CANNOT CONTINUE IN THIS STATE...')
+logging.info(f'{GAME_NAME} is finishing\n' + '=' * 100)
 logging.shutdown()

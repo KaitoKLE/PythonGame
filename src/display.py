@@ -3,7 +3,8 @@ import logging
 import pygame
 import pygame.gfxdraw
 
-from constants import MAIN_PATH, W_MIN_WIDTH, W_MIN_HEIGHT
+from constants import MAIN_PATH, W_MIN_WIDTH, W_MIN_HEIGHT, GAME_NAME
+from src.file_scanner import FileScanner
 
 
 class Display:
@@ -11,13 +12,8 @@ class Display:
         self.width = W_MIN_WIDTH
         self.height = W_MIN_HEIGHT
         self.canvas = pygame.display.set_mode((self.width, self.height), False)
-        try:
-            pygame.display.set_icon(
-                pygame.image.load(f'{MAIN_PATH}/resources/icon.png')
-            )
-        except (FileNotFoundError, IOError, PermissionError) as e:
-            logging.error(f'Cannot load the image file: {e}')
-        pygame.display.set_caption('Python game')
+        pygame.display.set_icon(FileScanner.load_image(f'{MAIN_PATH}/resources/icon.png'))
+        pygame.display.set_caption(GAME_NAME)
 
     @property
     def center(self):

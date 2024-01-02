@@ -2,8 +2,8 @@ import logging
 
 import pygame
 
-from character import Player, NPC
-from constants import FRAME_RATE
+from character import Player
+from constants import FRAME_RATE, GAME_NAME
 from display import Display
 from map import Map
 from src.camera import Camera
@@ -11,7 +11,7 @@ from src.camera import Camera
 
 class Game:
     def __init__(self):
-        logging.info('Game is initializing')
+        logging.info(f'{GAME_NAME} is initializing')
         pygame.init()
         self.running = False
         self.pause = None
@@ -25,17 +25,17 @@ class Game:
     
     def loop(self):
         self.running = True
-        logging.info('Game is running')
+        logging.info(f'{GAME_NAME} is running')
         while self.running:
             self.events()
             if not self.pause:
                 self.update()
                 self.display.draw(self.current_map, self.player, self.camera)
             self.clock.tick(FRAME_RATE)
-        logging.info('The game stopped running')
+        logging.info(f'{GAME_NAME} stopped running')
     
     def stop(self):
-        logging.info('Stopping game')
+        logging.info(f'Stopping {GAME_NAME}')
         self.running = False
     
     def update(self):
@@ -59,13 +59,13 @@ class Game:
         #     self.camera.focus(self.current_map.npc_list[1])
         # if pygame.K_k in self.active_keys:
         #     self.camera.focus(self.player)
-        self.directional_input()
+        self.__directional_input()
         if pygame.K_ESCAPE in self.active_keys:
             self.pause = True
         else:
             self.pause = False
     
-    def directional_input(self):
+    def __directional_input(self):
         if self.player.speed == (0, 0) and not self.pause:
             if pygame.K_RIGHT in self.active_keys:
                 step = (1, 0)

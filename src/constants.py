@@ -3,6 +3,7 @@ from os.path import dirname
 MAIN_PATH = dirname(dirname(__file__))
 
 # Game settings
+GAME_NAME = 'PythonGame v1.2'
 MOV_SPEED = 3
 FRAME_RATE = 60
 
