@@ -5,6 +5,7 @@ import numpy
 
 @dataclass
 class MapData:
+    """To save map information"""
     name: str
     tile_set_path: str
     npc: list

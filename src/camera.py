@@ -4,6 +4,7 @@ from constants import TILES_SIZE
 
 
 class Camera:
+    """Follows the player in the center of the actual display"""
     def __init__(self, w, h, character):
         self.__rect = Rect(character.x, character.y, w, h)
         self.__focus = character
