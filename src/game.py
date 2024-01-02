@@ -10,7 +10,9 @@ from src.camera import Camera
 
 
 class Game:
+    """Overall class to manage game behavior."""
     def __init__(self):
+        """Initialize the game."""
         logging.info(f'{GAME_NAME} is initializing')
         pygame.init()
         self.running = False
@@ -24,6 +26,7 @@ class Game:
         logging.info('The game is now ready to start running')
     
     def loop(self):
+        """Start the main loop for the game."""
         self.running = True
         logging.info(f'{GAME_NAME} is running')
         while self.running:
@@ -35,15 +38,18 @@ class Game:
         logging.info(f'{GAME_NAME} stopped running')
     
     def stop(self):
+        """Stop the main loop for the game."""
         logging.info(f'Stopping {GAME_NAME}')
         self.running = False
     
     def update(self):
+        """Update environment variables"""
         for char in [self.player] + self.current_map.npc_list:
             char.update(self.current_map)
         self.camera.update()
     
     def events(self):
+        """Checks for game events"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 logging.info('An event to QUIT has been started')
@@ -55,6 +61,7 @@ class Game:
         self.keyboard_events()
     
     def keyboard_events(self):
+        """Checks for keyboard events"""
         # if pygame.K_j in self.active_keys:
         #     self.camera.focus(self.current_map.npc_list[1])
         # if pygame.K_k in self.active_keys:
@@ -66,6 +73,7 @@ class Game:
             self.pause = False
     
     def __directional_input(self):
+        """Checks for keyboard input for player movement"""
         if self.player.speed == (0, 0) and not self.pause:
             if pygame.K_RIGHT in self.active_keys:
                 step = (1, 0)
