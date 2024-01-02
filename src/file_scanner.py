@@ -14,6 +14,8 @@ class FileScanner:
         except (FileNotFoundError, PermissionError, IOError) as e:
             logging.error(f'Could not scan file: {e}')
             return None
+        except json.decoder.JSONDecodeError as e:
+            logging.error(f'There was an error while parsing a json file: {e}')
     
     @classmethod
     def load_image(cls, path):

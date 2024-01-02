@@ -14,19 +14,25 @@ class TileSet:
         dy = size[1] + spacing
         for x in range(x0, w, dx):
             for y in range(y0, h, dy):
-                tile = pygame.Surface(size)
+                tile = pygame.Surface(size, pygame.SRCALPHA)
                 tile.blit(image, (0, 0), (x, y, *size))
                 self.tiles.append(tile)
 
 
 class TileMap:
-    def __init__(self, tile_set_path, map_):
-        self.size = map_.shape
+    def __init__(self, tile_set_path, map_z0, map_z1):
+        self.size = map_z0.shape
         self.tile_set = TileSet(tile_set_path)
-        self.map = map_
-        self.image = pygame.Surface((TILES_SIZE * self.size[1], TILES_SIZE * self.size[0]))
-        m, n = self.map.shape
-        for i in range(m):
-            for j in range(n):
-                tile = self.tile_set.tiles[self.map[i, j]]
-                self.image.blit(tile, (j * TILES_SIZE, i * TILES_SIZE))
+        self.map_z0 = map_z0
+        self.map_z1 = map_z1
+        self.image_z0 = pygame.Surface((TILES_SIZE * self.size[1], TILES_SIZE * self.size[0]), pygame.SRCALPHA)
+        self.image_z1 = pygame.Surface((TILES_SIZE * self.size[1], TILES_SIZE * self.size[0]), pygame.SRCALPHA)
+        self.__render()
+    
+    def __render(self):
+        for i in range(self.size[0]):
+            for j in range(self.size[1]):
+                tile_z0 = self.tile_set.tiles[self.map_z0[i, j]]
+                self.image_z0.blit(tile_z0, (j * TILES_SIZE, i * TILES_SIZE))
+                tile_z1 = self.tile_set.tiles[self.map_z1[i, j]]
+                self.image_z1.blit(tile_z1, (j * TILES_SIZE, i * TILES_SIZE))

@@ -12,7 +12,8 @@ NAME = 'name'
 TS = 'tile_set'
 NPCS = 'npc'
 COLLISION = 'collision'
-SHAPE = 'map_shape'
+SHAPE_Z0 = 'map_shape_z0'
+SHAPE_Z1 = 'map_shape_z1'
 
 
 class DataManager:
@@ -43,5 +44,6 @@ class DataManager:
                 list(cls.maps[map_id][COLLISION])
             )
         )
-        shape = numpy.array(list(cls.maps[map_id][SHAPE]))
-        return MapData(name, ts, npc, col, shape)
+        shape_z0 = numpy.array(list(cls.maps[map_id][SHAPE_Z0]))
+        shape_z1 = numpy.array(list(cls.maps[map_id][SHAPE_Z1]))
+        return MapData(name, ts, npc, col, shape_z0, shape_z1)

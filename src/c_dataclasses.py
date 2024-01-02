@@ -9,4 +9,5 @@ class MapData:
     tile_set_path: str
     npc: list
     collision: numpy.array
-    map_shape: numpy.array
+    map_shape_z0: numpy.array
+    map_shape_z1: numpy.array
