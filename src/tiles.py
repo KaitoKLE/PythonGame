@@ -1,11 +1,10 @@
-import numpy
 import pygame
 
 from constants import TILES_SIZE, MAIN_PATH
 
 
 class TileSet:
-    def __init__(self, file_path, size=(TILES_SIZE, TILES_SIZE), margin=2, spacing=1):
+    def __init__(self, file_path, size=(TILES_SIZE, TILES_SIZE), margin=0, spacing=0):
         self.tiles = []
         image = pygame.image.load(file_path)
         rect = image.get_rect()
