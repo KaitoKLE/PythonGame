@@ -1,5 +1,7 @@
  # Python Game
 
+![image](https://github.com/KaitoKLE/PythonGame/assets/106547815/750fdf22-9a3c-44ad-9281-2ad76fb8a63b)
+
 This is a WIP simple Python game built with Pygame.
 
 ### Prerequisites
