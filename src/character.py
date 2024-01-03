@@ -2,7 +2,8 @@ import random
 
 import pygame.image
 
-from constants import TILES_SIZE, MOV_SPEED
+from constants import TILES_SIZE, MOV_SPEED, MAIN_PATH
+from src.spritesheet import SpriteSheet, FACING_DOWN, STATIC
 
 
 class Character:
@@ -12,7 +13,8 @@ class Character:
         self.__pos = list(pos)
         self.__xy = [pos[0] * TILES_SIZE, pos[1] * TILES_SIZE]
         self.__speed = (0, 0)
-        self.sprite = pygame.image.load('D:\\Luis Ernesto\\Documentos\\Proyectos\\PythonGame\\resources\\py.png')
+        self.sprite = pygame.image.load(
+            'D:\\Luis Ernesto\\Documentos\\Proyectos\\PythonGame\\resources\\py.png')
     
     @property
     def col(self):
@@ -71,6 +73,10 @@ class Character:
 class Player(Character):
     def __init__(self, pos, name):
         super().__init__(1, pos, name)
+        sprite_sheet = SpriteSheet('\\'.join((MAIN_PATH, 'resources\\spritesheets\\player.png')))
+        self.sprite = sprite_sheet.image_at((
+            STATIC, FACING_DOWN)
+        )
 
 
 class NPC(Character):

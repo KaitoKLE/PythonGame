@@ -14,3 +14,6 @@ POINTER_DEFAULT_SIZE = 25
 
 # TileSet and TileMap settings
 TILES_SIZE = 64
+
+# SpriteSheet settings
+DEFAULT_COLOR_KEY = (180, 30, 190)  # some purple color :D
