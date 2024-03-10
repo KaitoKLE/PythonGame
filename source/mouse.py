@@ -1,7 +1,7 @@
 from pygame import Rect, Surface, time
 from pygame.mouse import get_pos
-from sprite import SpriteSheet
-from file_system import MOUSE_SPRITE
+from source.sprite import SpriteSheet
+from source.file_system import MOUSE_SPRITE
 
 MOUSE_ANIM_LENGTH = 2
 

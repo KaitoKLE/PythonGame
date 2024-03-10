@@ -6,9 +6,9 @@ from typing import TYPE_CHECKING
 from pygame import Vector2, Rect
 from pygame.sprite import Group as SpritesGroup
 
-from settings import TILES_SIZE, WALK_SPEED, RUN_SPEED, DOWN_VECTOR, RIGHT_VECTOR, LEFT_VECTOR, UP_VECTOR
-from sprite import AnimatedSprite
-from .game_object import GameObject
+from source.settings import TILES_SIZE, WALK_SPEED, RUN_SPEED, DOWN_VECTOR, RIGHT_VECTOR, LEFT_VECTOR, UP_VECTOR
+from source.sprite import AnimatedSprite
+from source.game_object import GameObject
 
 if TYPE_CHECKING:
     from map import Map

@@ -1,15 +1,13 @@
 """
 Settings file for project.
 """
-# from os.path import dirname
-# from sys import path as syspath
+from os.path import dirname
+from sys import path as syspath
 from pygame.constants import *
 from pygame import Vector2
 
-# add src path to the python path
+# add source path to the python path
 # syspath.append(dirname(dirname(__file__)))
-# for path in syspath:
-#     print(path)
 
 # Game settings
 VERSION = 1.4

@@ -5,14 +5,14 @@ import os
 from pygame import image, Surface, error as pygame_error, transform
 
 # important paths
-RESOURCES = '../resources'
+RESOURCES = './assets'
 SPRITE_SHEETS = '/spritesheets/'
-ICON_PATH = '../resources/icon.png'
-LOG_FILE = '../logging.log'
+ICON_PATH = './assets/icon.png'
+LOG_FILE = './logging.log'
 PLAYER_SPRITE = 'player.png'
 MOUSE_SPRITE = 'mouse.png'
-NPC_JSON = '../resources/data_files/npcs.json'
-MAPS_DATA = '../resources/data_files/maps/'
+NPC_JSON = './data/npcs.json'
+MAPS_DATA = './data/maps/'
 
 
 def exec_operation(file, operation):

@@ -1,6 +1,6 @@
 {
     "name": "TEST ZONE",
-    "tile_set": "../resources/tile_sets/test_tileset.png",
+    "tile_set": "./assets/tile_sets/test_tileset.png",
     "player_spawn": [5, 4],
     "npc": [
         ["sans", [3, 4]],

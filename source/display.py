@@ -2,26 +2,42 @@ import logging
 
 import pygame
 from pygame import FULLSCREEN
-from pygame.display import set_icon, set_caption, set_mode, flip, Info as get_screen_info
+from pygame.display import set_icon, set_caption, set_mode, flip, Info as DisplayInfo
 
-from file_system import FileSystem, ICON_PATH
-from settings import (GAME_NAME, LOADING_ST, PAUSED_ST)
-from special import Size
-from ui import UI
+from source.file_system import FileSystem, ICON_PATH
+from source.settings import (GAME_NAME, LOADING_ST, PAUSED_ST)
+from source.special import Size
+from source.ui import UI
 
 
 # Display settings
 SCALE = 0.7  # the game window will occupy this percent of the screen
 
 
+def get_display_info() -> tuple[Size, Size]:
+    """
+        Calculate the display resolution based on the screen resolution and the scale factor
+    """
+    # get screen resolution
+    screen_width, screen_height = DisplayInfo().current_w, DisplayInfo().current_h
+    # calculate aspect ratio of the screen
+    aspect_ratio = screen_width / screen_height
+    # if aspect ratio is greater than 16:9, adjust the width
+    if aspect_ratio > 16 / 9:
+        screen_width = int(screen_height * (16 / 9))
+    # if aspect ratio is less than 16:9, adjust the height
+    elif aspect_ratio < 16 / 9:
+        screen_height = int(screen_width / (16 / 9))
+    # apply the scale to the screen resolution
+    display_width = int(screen_width * SCALE)
+    display_height = int(screen_height * SCALE)
+    return Size(screen_width, screen_height), Size(display_width, display_height)
+
+
 class Display:
     def __init__(self):
-
-        screen_info = get_screen_info()
-        self.__screen_size = screen_info.current_w, screen_info.current_h
-        self.__w_min_width = int(self.__screen_size[0] * SCALE)
-        self.__w_min_height = int(self.__w_min_width * SCALE)
-        self.__current_size = Size(self.__w_min_width, self.__w_min_height)
+        self.__screen_size, self.__display_size = get_display_info()
+        self.__current_size = Size(self.__display_size.width, self.__display_size.height)
         self.__WINDOWED_SIZE = self.__current_size
         self.__fullscreen = False
         logging.info(

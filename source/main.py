@@ -2,8 +2,8 @@ import logging
 
 from pygame import error as pygame_error
 
-from game import Game
-from file_system import LOG_FILE
+from source.game import Game
+from source.file_system import LOG_FILE
 
 
 def init_logging():
@@ -29,8 +29,3 @@ def main():
         logging.critical('CANNOT CONTINUE IN THIS STATE...')
     logging.info('Finished...\n' + '=' * 100)
     logging.shutdown()
-
-
-# run the game
-if __name__ == "__main__":
-    main()

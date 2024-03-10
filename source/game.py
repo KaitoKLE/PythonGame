@@ -5,17 +5,17 @@ from threading import Thread
 from pygame import event as system_event, mouse, time, key as keyboard, init as pygame_init
 from pygame.constants import QUIT, KEYUP, KEYDOWN
 
-from camera import Camera
-from data_manager import DataManager
-from display import Display
-from map import Map
-from game_objs.player import Player
-from settings import (FRAME_RATE, TIME_SPEED, LOADING_ST, PLAYING_ST, STOPPING_ST, PAUSED_ST,
+from source.camera import Camera
+from source.data_manager import DataManager
+from source.display import Display
+from source.map import Map
+from source.player import Player
+from source.settings import (FRAME_RATE, TIME_SPEED, LOADING_ST, PLAYING_ST, STOPPING_ST, PAUSED_ST,
                       RIGHT_VECTOR, LEFT_VECTOR, UP_VECTOR, DOWN_VECTOR, STAY_VECTOR,
                       ACTION_KEY, DOWN_KEY, LEFT_KEY, RIGHT_KEY, UP_KEY, MENU_KEY, RUN_KEY, EXIT_KEY,
                       FULL_SCREEN)
-from mouse import MouseCursor
-from events import EventManager
+from source.mouse import MouseCursor
+from source.events import EventManager
 
 
 class Game:
@@ -117,14 +117,14 @@ class Game:
 
     def __init_routine(self):
         """
-        Initializes the routine by loading resources, initializing the DataManager, loading the map, and registering event types.
+        Initializes the routine by loading assets, initializing the DataManager, loading the map, and registering event types.
         """
-        logging.info('Loading resources...')
+        logging.info('Loading assets...')
         result = DataManager.init()
         if not result:
-            raise Exception('Something went wrong while loading resources')
+            raise Exception('Something went wrong while loading assets')
         self.load_map()  # TODO: replace this method with the game HOME UI
-        logging.info('Done loading resources!')
+        logging.info('Done loading assets!')
         logging.info('Registering event types...')
         # events to register
         logging.info('Done registering event types!')
