@@ -1,0 +1,9 @@
+{
+    "sans": {
+        "name": "Sans",
+        "sprite_sheet": "nosprite.png"
+    },
+    "player": {
+        "sprite_sheet": "player.png"
+    }
+}
