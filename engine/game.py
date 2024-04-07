@@ -5,17 +5,17 @@ from threading import Thread
 from pygame import event as system_event, mouse, time, key as keyboard, init as pygame_init
 from pygame.constants import QUIT, KEYUP, KEYDOWN
 
-from source.camera import Camera
-from source.data_manager import DataManager
-from source.display import Display
-from source.map import Map
-from source.player import Player
-from source.settings import (FRAME_RATE, TIME_SPEED, LOADING_ST, PLAYING_ST, STOPPING_ST, PAUSED_ST,
-                      RIGHT_VECTOR, LEFT_VECTOR, UP_VECTOR, DOWN_VECTOR, STAY_VECTOR,
-                      ACTION_KEY, DOWN_KEY, LEFT_KEY, RIGHT_KEY, UP_KEY, MENU_KEY, RUN_KEY, EXIT_KEY,
-                      FULL_SCREEN)
-from source.mouse import MouseCursor
-from source.file_system import FileSystem, DATA_DIR
+from display.camera import Camera
+from engine.data_manager import DataManager
+from display.canvas import Canvas
+from engine.map import Map
+from game_objects.player import Player
+from settings.constants import (TIME_SPEED, LOADING_ST, PLAYING_ST, STOPPING_ST, PAUSED_ST,
+                                RIGHT_VECTOR, LEFT_VECTOR, UP_VECTOR, DOWN_VECTOR, STAY_VECTOR,
+                                ACTION_KEY, DOWN_KEY, LEFT_KEY, RIGHT_KEY, UP_KEY, MENU_KEY, RUN_KEY, EXIT_KEY,
+                                FULL_SCREEN)
+from engine.mouse import MouseCursor
+from engine.file_system import FileSystem
 
 
 class Game:
@@ -31,7 +31,7 @@ class Game:
         self.__version = game_data['version']
         self.__status: int = LOADING_ST
         self.__clock = time.Clock()
-        self.__display: Display = Display(self.__name)
+        self.__display: Canvas = Canvas(self.__name)
         self.__game_time = datetime(1790, 1, 14, 12, 0, 0)
         self.__current_map: Map = None
         self.__player: Player = Player('Player')

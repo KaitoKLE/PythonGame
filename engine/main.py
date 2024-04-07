@@ -2,8 +2,8 @@ import logging
 
 from pygame import error as pygame_error
 
-from source.game import Game
-from source.file_system import LOG_FILE
+from engine.game import Game
+from settings.paths import LOG_FILE
 
 
 def init_logging():

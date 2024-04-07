@@ -1,13 +1,13 @@
 import logging
 
-import pygame
 from pygame import FULLSCREEN
 from pygame.display import set_icon, set_caption, set_mode, flip, Info as DisplayInfo
 
-from source.file_system import FileSystem, ICON_PATH
-from source.settings import LOADING_ST, PAUSED_ST
-from source.special import Size
-from source.ui import UI
+from engine.file_system import FileSystem
+from settings.paths import ICON_PATH
+from settings.constants import LOADING_ST, PAUSED_ST
+from engine.special import Size
+from display.ui import UI
 
 
 # Display settings
@@ -34,7 +34,7 @@ def get_display_info() -> tuple[Size, Size]:
     return Size(screen_width, screen_height), Size(display_width, display_height)
 
 
-class Display:
+class Canvas:
     def __init__(self, name):
         self.__screen_size, self.__display_size = get_display_info()
         self.__current_size = Size(self.__display_size.width, self.__display_size.height)

@@ -2,8 +2,8 @@ import logging
 
 from numpy import array, transpose
 
-from source.file_system import FileSystem
-from source.special import MapData
+from engine.file_system import FileSystem
+from engine.special import MapData
 
 # KEYS, should be the same as the ones in the involved json file
 NAME = 'name'

@@ -6,7 +6,7 @@ from sys import path as syspath
 from pygame.constants import *
 from pygame import Vector2
 
-# add source path to the python path
+# add engine path to the python path
 # syspath.append(dirname(dirname(__file__)))
 
 # Game settings

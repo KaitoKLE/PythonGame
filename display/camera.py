@@ -1,6 +1,6 @@
 from pygame import Rect
 
-from source.settings import TILES_SIZE, WALK_SPEED
+from settings.constants import TILES_SIZE, WALK_SPEED
 
 
 class Camera:

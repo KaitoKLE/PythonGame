@@ -1,9 +1,9 @@
 from pygame import Vector2
 from pygame.sprite import Group as SpritesGroup
 
-from source.entity import Entity
-from source.settings import TILES_SIZE
-from source.file_system import PLAYER_SPRITE
+from game_objects.entity import Entity
+from settings.constants import TILES_SIZE
+from settings.paths import PLAYER_SPRITE
 
 
 class Player(Entity):

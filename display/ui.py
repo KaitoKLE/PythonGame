@@ -4,14 +4,13 @@ import pygame
 from pygame import draw, Surface
 from pygame.font import Font
 
-from source.mouse import MouseCursor
-from source.special import UIColors
-from source.settings import WHITE, BLACK, PLAYING_ST, STOPPING_ST, STAY_VECTOR, LOADING_ST, PAUSED_ST
+from settings.paths import UI_FONT, CLOCK_FONT
+from engine.mouse import MouseCursor
+from engine.special import UIColors
+from settings.constants import WHITE, BLACK, LOADING_ST, PAUSED_ST
 
 # UI settings
 DEFAULT_UI_COLORS = UIColors(WHITE, BLACK)
-UI_FONT = './assets/fonts/MAIAN.TTF'
-CLOCK_FONT = './assets/fonts/OCRAEXT.TTF'
 
 
 def ui_font(text, color, size):

@@ -5,15 +5,7 @@ from os.path import splitext, exists
 
 from pygame import image, error as pygame_error, transform
 
-# important paths
-ASSETS = './assets'
-SPRITE_SHEETS = '/spritesheets'
-ICON_PATH = './assets/icon.png'
-LOG_FILE = './logging.log'
-PLAYER_SPRITE = 'player.png'
-MOUSE_SPRITE = 'mouse.png'
-MAPS_DIR = '/maps'
-DATA_DIR = './data'
+from settings.paths import ASSETS, SPRITE_SHEETS, MAPS_DIR, DATA_DIR
 
 
 class FileSystem:

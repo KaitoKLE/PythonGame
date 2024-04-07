@@ -2,11 +2,11 @@ from numpy import array, transpose
 from pygame import Surface, SRCALPHA
 from pygame.sprite import Group as SpritesGroup
 
-from source.data_manager import DataManager
-from source.file_system import FileSystem
-from source.npc import NPC
-from source.settings import TILES_SIZE
-from source.special import Position
+from engine.data_manager import DataManager
+from engine.file_system import FileSystem
+from game_objects.npc import NPC
+from settings.constants import TILES_SIZE
+from engine.special import Position
 
 
 def scan_tile_set(file_path, size=(TILES_SIZE, TILES_SIZE), margin=0, spacing=0):

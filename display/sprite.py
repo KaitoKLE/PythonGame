@@ -1,11 +1,9 @@
-import logging
-
 from numpy import array
 from pygame import Vector2, Rect, Surface, SRCALPHA, RLEACCEL, transform, time
 
-from source.file_system import FileSystem
-from source.settings import DEFAULT_COLOR_KEY, TILES_SIZE, STAY_VECTOR
-from source.special import Size
+from engine.file_system import FileSystem
+from settings.constants import DEFAULT_COLOR_KEY, TILES_SIZE, STAY_VECTOR
+from engine.special import Size
 
 # DEFAULT SPRITE_SHEET PROPERTIES
 DEFAULT = {

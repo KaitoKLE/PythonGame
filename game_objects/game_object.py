@@ -1,8 +1,7 @@
 from pygame import Rect, Surface, Vector2
 from pygame.sprite import Sprite, Group as SpritesGroup
 
-# TODO: fix problem when importing source.sprite...
-from source.sprite import AnimatedSprite
+from display.sprite import AnimatedSprite
 
 
 class GameObject(Sprite):
