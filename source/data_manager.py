@@ -2,7 +2,7 @@ import logging
 
 from numpy import array, transpose
 
-from source.file_system import FileSystem, NPC_JSON
+from source.file_system import FileSystem
 from source.special import MapData
 
 # KEYS, should be the same as the ones in the involved json file
@@ -30,7 +30,7 @@ class DataManager:
     @classmethod
     def init(cls):
         logging.info(f'Scanning data files...')
-        cls.__npcs = FileSystem.scan_json(NPC_JSON)
+        cls.__npcs = FileSystem.parse_json('npcs.json')
         maps = FileSystem.scan_maps()
         for key in maps.keys():
             cls.__maps[key] = cls.__convert_map_data(maps[key])

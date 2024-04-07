@@ -1,69 +1,65 @@
-import json
-import logging
-import os
+from json import load as load_json, JSONDecodeError
+from logging import error
+from os import scandir
+from os.path import splitext, exists
 
-from pygame import image, Surface, error as pygame_error, transform
+from pygame import image, error as pygame_error, transform
 
 # important paths
-RESOURCES = './assets'
-SPRITE_SHEETS = '/spritesheets/'
+ASSETS = './assets'
+SPRITE_SHEETS = '/spritesheets'
 ICON_PATH = './assets/icon.png'
 LOG_FILE = './logging.log'
 PLAYER_SPRITE = 'player.png'
 MOUSE_SPRITE = 'mouse.png'
-NPC_JSON = './data/npcs.json'
-MAPS_DATA = './data/maps/'
-
-
-def exec_operation(file, operation):
-    try:
-        return operation(file)
-    except (FileNotFoundError, PermissionError, IOError) as e:
-        logging.error(e)
-        return None
+MAPS_DIR = '/maps'
+DATA_DIR = './data'
 
 
 class FileSystem:
+    __cache = {}
 
     @classmethod
-    def scan_json(cls, path):
+    def exec_operation(cls, file, operation):
+        if (file, operation) in FileSystem.__cache:
+            return FileSystem.__cache[(file, operation)]
         try:
-            file = exec_operation(path, open)
-            data = exec_operation(file, json.load)
-            file.close()
-            return data
-        except json.decoder.JSONDecodeError as e:
-            logging.error(f'There was an error while parsing a json file: {e}')
+            result = operation(file)
+            FileSystem.__cache[(file, operation)] = result
+            return result
+        except (FileNotFoundError, PermissionError, IOError, JSONDecodeError, pygame_error) as e:
+            error(e)
+            exit()
 
     @classmethod
-    def load_image(cls, path, fail=(1, 1)):
-        try:
-            return exec_operation(path, image.load)
-        except pygame_error as e:
-            logging.error(f'Could not load image file: {e}')
-            return Surface(fail)
+    def parse_json(cls, file):
+        file = cls.exec_operation(f'{DATA_DIR}/{file}', open)
+        data = cls.exec_operation(file, load_json)
+        file.close()
+        return data
 
     @classmethod
-    def load_image_scaled(cls, path, scale=2):
-        img = cls.load_image(path)
-        if isinstance(scale, int):
-            img = transform.scale(img, (img.get_size()[0] * scale, img.get_size()[1] * scale))
-        elif isinstance(scale, tuple) or isinstance(scale, list):
-            img = transform.scale(img, scale)
+    def load_image(cls, path, scale=None):
+        img = cls.exec_operation(path, image.load)
+        if scale:
+            if isinstance(scale, int):
+                img = transform.scale(img, (img.get_size()[0] * scale, img.get_size()[1] * scale))
+            elif isinstance(scale, tuple) or isinstance(scale, list):
+                img = transform.scale(img, scale)
         return img
 
     @classmethod
     def load_sprite(cls, key):
-        path = RESOURCES + SPRITE_SHEETS + key
-        image = cls.load_image(path)
+        path = f'{ASSETS}{SPRITE_SHEETS}/{key}'
+        img = cls.load_image(path)
         json_path = path.replace('.png', '.json')
-        properties = cls.scan_json(json_path) if os.path.exists(json_path) else {}
-        return image, properties
+        properties = cls.parse_json(json_path) if exists(json_path) else {}
+        return img, properties
 
     @classmethod
     def scan_maps(cls) -> dict:
         data = {}
-        files = exec_operation(MAPS_DATA, os.scandir)
+        files = cls.exec_operation(f'{DATA_DIR}/{MAPS_DIR}', scandir)
         for file in files:
-            data[os.path.splitext(file.name)[0]] = cls.scan_json(file.path)
+            data[splitext(file.name)[0]] = cls.parse_json(f'{MAPS_DIR}/{file.name}')
         return data

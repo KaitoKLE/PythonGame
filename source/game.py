@@ -15,6 +15,7 @@ from source.settings import (FRAME_RATE, TIME_SPEED, LOADING_ST, PLAYING_ST, STO
                       ACTION_KEY, DOWN_KEY, LEFT_KEY, RIGHT_KEY, UP_KEY, MENU_KEY, RUN_KEY, EXIT_KEY,
                       FULL_SCREEN)
 from source.mouse import MouseCursor
+from source.file_system import FileSystem, DATA_DIR
 
 
 class Game:
@@ -25,9 +26,12 @@ class Game:
         logging.info('Initializing')
         pygame_init()
         mouse.set_visible(False)  # hide the system pointer to only see the game pointer :D
+        game_data = FileSystem.parse_json('settings.json')
+        self.__name = game_data['name']
+        self.__version = game_data['version']
         self.__status: int = LOADING_ST
         self.__clock = time.Clock()
-        self.__display: Display = Display()
+        self.__display: Display = Display(self.__name)
         self.__game_time = datetime(1790, 1, 14, 12, 0, 0)
         self.__current_map: Map = None
         self.__player: Player = Player('Player')
@@ -36,6 +40,16 @@ class Game:
         self.__thread.start()
         self.__player_directional_input = STAY_VECTOR
         self.__mouse: MouseCursor = MouseCursor()
+
+    @property
+    def name(self) -> str:
+        """Return the name of the game."""
+        return self.__name
+
+    @property
+    def version(self) -> str:
+        """Return the version of the game."""
+        return self.__version
 
     @property
     def map(self):

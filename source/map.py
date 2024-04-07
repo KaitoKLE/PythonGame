@@ -11,7 +11,7 @@ from source.special import Position
 
 def scan_tile_set(file_path, size=(TILES_SIZE, TILES_SIZE), margin=0, spacing=0):
     tiles = []
-    image = FileSystem.load_image_scaled(file_path)
+    image = FileSystem.load_image(file_path, scale=2)
     rect = image.get_rect()
     x0 = y0 = margin
     w, h = rect.size

@@ -5,7 +5,7 @@ from pygame import FULLSCREEN
 from pygame.display import set_icon, set_caption, set_mode, flip, Info as DisplayInfo
 
 from source.file_system import FileSystem, ICON_PATH
-from source.settings import (GAME_NAME, LOADING_ST, PAUSED_ST)
+from source.settings import LOADING_ST, PAUSED_ST
 from source.special import Size
 from source.ui import UI
 
@@ -35,7 +35,7 @@ def get_display_info() -> tuple[Size, Size]:
 
 
 class Display:
-    def __init__(self):
+    def __init__(self, name):
         self.__screen_size, self.__display_size = get_display_info()
         self.__current_size = Size(self.__display_size.width, self.__display_size.height)
         self.__WINDOWED_SIZE = self.__current_size
@@ -46,7 +46,7 @@ class Display:
         self.__canvas = set_mode(self.__current_size, False)
         self.__ui = UI(self)
         set_icon(FileSystem.load_image(ICON_PATH))
-        set_caption(GAME_NAME)
+        set_caption(name)
 
     @property
     def width(self):
@@ -66,7 +66,7 @@ class Display:
 
     def update(self, game):
         self.__background()
-        set_caption(f'{GAME_NAME} | {game.fps} FPS')
+        set_caption(f'{game.name} v{game.version} | {game.fps} FPS')
         if game.status not in (LOADING_ST, PAUSED_ST):
             self.__draw(game)
         self.__ui.update(game)
