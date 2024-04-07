@@ -15,7 +15,6 @@ from source.settings import (FRAME_RATE, TIME_SPEED, LOADING_ST, PLAYING_ST, STO
                       ACTION_KEY, DOWN_KEY, LEFT_KEY, RIGHT_KEY, UP_KEY, MENU_KEY, RUN_KEY, EXIT_KEY,
                       FULL_SCREEN)
 from source.mouse import MouseCursor
-from source.events import EventManager
 
 
 class Game:
@@ -29,12 +28,12 @@ class Game:
         self.__status: int = LOADING_ST
         self.__clock = time.Clock()
         self.__display: Display = Display()
-        self.__event_manager = EventManager()
+        # self.__event_manager = EventManager()
         self.__game_time = datetime(1990, 1, 14, 12, 0, 0)
         self.__current_map: Map = None
         self.__player: Player = Player('Player')
         self.__camera: Camera = Camera(self.__display.width, self.__display.height, self.__player)
-        self.__thread = Thread(target=self.__init_routine, daemon=True)
+        self.__thread = Thread(target=self.__load_assets, daemon=True)
         self.__thread.start()
         self.__player_directional_input = STAY_VECTOR
         self.__mouse: MouseCursor = MouseCursor()
@@ -111,11 +110,7 @@ class Game:
         self.__player.add(self.__current_map.all_characters)
         self.__status = PLAYING_ST
 
-    def warp(self, destiny: str):
-        self.__thread = Thread(target=self.load_map, args=[destiny], daemon=True)
-        self.__thread.start()
-
-    def __init_routine(self):
+    def __load_assets(self):
         """
         Initializes the routine by loading assets, initializing the DataManager, loading the map, and registering event types.
         """
@@ -125,12 +120,9 @@ class Game:
             raise Exception('Something went wrong while loading assets')
         self.load_map()  # TODO: replace this method with the game HOME UI
         logging.info('Done loading assets!')
-        logging.info('Registering event types...')
-        # events to register
-        logging.info('Done registering event types!')
 
     def __loop(self):
-        logging.info('Now running')
+        logging.info('Main loop started')
         while self.__status != STOPPING_ST:
             self.__update()
         logging.info('Stopped running')
