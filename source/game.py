@@ -25,7 +25,7 @@ class Game:
         """Initialize the game."""
         logging.info('Initializing')
         pygame_init()
-        mouse.set_visible(False)
+        mouse.set_visible(False)  # hide the system pointer to only see the game pointer :D
         self.__status: int = LOADING_ST
         self.__clock = time.Clock()
         self.__display: Display = Display()

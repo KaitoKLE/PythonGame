@@ -1,4 +1,7 @@
-"""Module to represent a generic character."""
+"""
+    Module that contains the Entity class, which represents a generic character.
+"""
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -61,24 +64,26 @@ class Entity(GameObject):
 
     def __move(self, player_input: Vector2):
         """Updates the X and Y values of the character to match the grid coordinates"""
-        if abs(self.gridx * TILES_SIZE - self.coord.x) > WALK_SPEED:  # LEFT & RIGHT
-            if self.gridx * TILES_SIZE > self.coord.x:
-                direction = RIGHT_VECTOR
-            else:
-                direction = LEFT_VECTOR
-        elif abs(self.gridy * TILES_SIZE - self.coord.y) > WALK_SPEED:  # UP & DOWN
-            if self.gridy * TILES_SIZE < self.coord.y:
-                direction = UP_VECTOR
-            else:
-                direction = DOWN_VECTOR
+        grid_x = self.gridx * TILES_SIZE
+        grid_y = self.gridy * TILES_SIZE
+
+        diff_x = grid_x - self.coord.x
+        diff_y = grid_y - self.coord.y
+
+        if abs(diff_x) > WALK_SPEED:  # LEFT & RIGHT
+            direction = RIGHT_VECTOR if diff_x > 0 else LEFT_VECTOR
+        elif abs(diff_y) > WALK_SPEED:  # UP & DOWN
+            direction = DOWN_VECTOR if diff_y > 0 else UP_VECTOR
         else:  # NOT MOVING
             self._sprite.update(player_input)
             self._speed = 0
-            self.coord = Vector2(self.gridx * TILES_SIZE, self.gridy * TILES_SIZE)
+            self.coord = Vector2(grid_x, grid_y)
             return
+
         # APPLY CHANGES
         self.coord += direction * self._speed
         self._sprite.update(direction)
+
 
     def update(self, map_info: Map, direction: Vector2):
         if self._blocked:
