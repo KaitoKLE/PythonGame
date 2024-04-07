@@ -28,8 +28,7 @@ class Game:
         self.__status: int = LOADING_ST
         self.__clock = time.Clock()
         self.__display: Display = Display()
-        # self.__event_manager = EventManager()
-        self.__game_time = datetime(1990, 1, 14, 12, 0, 0)
+        self.__game_time = datetime(1790, 1, 14, 12, 0, 0)
         self.__current_map: Map = None
         self.__player: Player = Player('Player')
         self.__camera: Camera = Camera(self.__display.width, self.__display.height, self.__player)

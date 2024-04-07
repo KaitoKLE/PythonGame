@@ -18,7 +18,7 @@ def ui_font(text, color, size):
     return Font(UI_FONT, size).render(text, True, color)
 
 
-def clock_font(text, color):
+def number_font(text, color):
     return Font(CLOCK_FONT, 36).render(text, True, color)
 
 
@@ -44,14 +44,17 @@ class UI:
         self.__display.canvas.blit(mouse.image, mouse.pos)
 
     def draw_clock(self, game_time: {strftime}):
-        text = clock_font(game_time.strftime('%I:%M %p'), self.__ui_colors.primary)
-        text.set_alpha(150)
+        text_clock = number_font(game_time.strftime('%I:%M %p'), self.__ui_colors.primary)
+        text_clock.set_alpha(150)
+        text_date = number_font(game_time.strftime('%d/%m/%Y'), self.__ui_colors.primary)
+        text_date.set_alpha(150)
         surface = self.__draw_rect(
-            (text.get_width() + 20, text.get_height() + 20),
+            (text_date.get_width() + 20, text_clock.get_height() + text_date.get_height() + 20),
             2,
             (self.__ui_colors.secondary, self.__ui_colors.primary),
         )
-        surface.blit(text, (10, 10))
+        surface.blit(text_clock, (10, 10))
+        surface.blit(text_date, (10, text_clock.get_height() + 10))
         surface.set_alpha(150)
         self.__display.canvas.blit(surface, (10, 10))
 
