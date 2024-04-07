@@ -139,7 +139,7 @@ class Game:
         """
         Update the game state based on the current status and user inputs.
         """
-        delta = self.__clock.tick(FRAME_RATE)
+        delta = self.__clock.tick()
         self.__update_system_events()
         if self.__status == PLAYING_ST:
             self.__current_map.all_characters.update(self.__current_map, self.__player_directional_input)
