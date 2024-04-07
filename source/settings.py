@@ -10,7 +10,7 @@ from pygame import Vector2
 # syspath.append(dirname(dirname(__file__)))
 
 # Game settings
-VERSION = 1.4
+VERSION = 1.5
 GAME_NAME = f'PythonGame v{VERSION} BETA'
 WALK_SPEED = 4
 RUN_SPEED = WALK_SPEED * 4
