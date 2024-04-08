@@ -183,7 +183,7 @@ class Game:
         if key == FULL_SCREEN:
             new_size = self.__display.fullscreen()
             # FIXME: camera glitches when size is changed...
-            self.__camera.size = new_size
+            self.__camera.size = self.__display.size
 
     def __player_movement(self):
         """

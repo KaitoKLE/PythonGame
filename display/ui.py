@@ -7,7 +7,7 @@ from pygame.font import Font
 from settings.paths import UI_FONT, CLOCK_FONT
 from engine.mouse import MouseCursor
 from engine.special import UIColors
-from settings.constants import WHITE, BLACK, LOADING_ST, PAUSED_ST
+from settings.constants import WHITE, BLACK, LOADING_ST, PAUSED_ST, GREY_DARK
 
 # UI settings
 DEFAULT_UI_COLORS = UIColors(WHITE, BLACK)
@@ -42,10 +42,10 @@ class UI:
     def draw_cursor(self, mouse: MouseCursor):
         self.__display.canvas.blit(mouse.image, mouse.pos)
 
-    def draw_clock(self, game_time: {strftime}):
-        text_clock = number_font(game_time.strftime('%I:%M %p'), self.__ui_colors.primary)
+    def draw_clock(self, game):
+        text_clock = number_font(game.game_time.strftime('%I:%M %p'), self.__ui_colors.primary)
         text_clock.set_alpha(150)
-        text_date = number_font(game_time.strftime('%d/%m/%Y'), self.__ui_colors.primary)
+        text_date = number_font(game.game_time.strftime('%d/%m/%Y'), self.__ui_colors.primary)
         text_date.set_alpha(150)
         surface = self.__draw_rect(
             (text_date.get_width() + 20, text_clock.get_height() + text_date.get_height() + 20),
@@ -57,13 +57,20 @@ class UI:
         surface.set_alpha(150)
         self.__display.canvas.blit(surface, (10, 10))
 
+        # debug
+        debug_text = number_font(
+            f'Player: [{game.player.gridx}, {game.player.gridy}], {game.player.coord}',
+            GREY_DARK
+        )
+        self.__display.canvas.blit(debug_text, (10, self.__display.canvas.get_height() - debug_text.get_height() - 10))
+
     def update(self, game):
         if game.status == LOADING_ST:
             self.loading_screen()
         elif game.status == PAUSED_ST:
             self.pause_menu()
         else:
-            self.draw_clock(game.game_time)
+            self.draw_clock(game)
         self.draw_cursor(game.mouse)
 
     def __draw_rect(self, size, border=0, colors=None):

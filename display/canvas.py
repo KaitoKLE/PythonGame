@@ -68,17 +68,16 @@ class Canvas:
         self.__background()
         set_caption(f'{game.name} v{game.version} | {game.fps} FPS')
         if game.status not in (LOADING_ST, PAUSED_ST):
-            self.__draw(game)
+            self.__draw_map(game)
         self.__ui.update(game)
         flip()
 
     def fullscreen(self):
         if self.__fullscreen:
-            new_size = self.resize(self.__WINDOWED_SIZE)
+            self.resize(self.__WINDOWED_SIZE)
         else:
-            new_size = self.resize((0, 0), True)
+            self.resize((0, 0), True)
         self.__fullscreen = not self.__fullscreen
-        return new_size
 
     def resize(self, new_size: tuple, full_screen=False):
         logging.info('Updating display size')
@@ -89,9 +88,8 @@ class Canvas:
             logging.info(f'New display size in windowed mode: {new_size}')
             set_mode(new_size)
         self.__current_size = new_size
-        return new_size
 
-    def __draw(self, game):
+    def __draw_map(self, game):
         map_obj = game.map.render()
         self.__canvas.blit(map_obj, (-game.camera.x, -game.camera.y))
 
