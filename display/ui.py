@@ -59,7 +59,7 @@ class UI:
 
         # debug
         debug_text = number_font(
-            f'Player: [{game.player.gridx}, {game.player.gridy}], {game.player.coord}',
+            f'Player: {game.player.grid_position}, {game.player.coord}',
             GREY_DARK
         )
         self.__display.canvas.blit(debug_text, (10, self.__display.canvas.get_height() - debug_text.get_height() - 10))

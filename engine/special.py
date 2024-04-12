@@ -22,6 +22,14 @@ class MapLayer:
     image: Surface
 
 
-Size = namedtuple('Size', ['width', 'height'])
-Position = namedtuple('Position', ['x', 'y'])
+class Size(namedtuple('Size', ['width', 'height'])):
+    def __str__(self):
+        return f'{self.width}x{self.height}'
+
+
+class Position(namedtuple('Position', ['x', 'y'])):
+    def __str__(self):
+        return f'({self.x}, {self.y})'
+
+
 UIColors = namedtuple('UIColors', ['primary', 'secondary'])

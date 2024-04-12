@@ -2,6 +2,7 @@ from pygame import Rect, Surface, Vector2
 from pygame.sprite import Sprite, Group as SpritesGroup
 
 from display.sprite import AnimatedSprite
+from engine.special import Position
 
 
 class GameObject(Sprite):
@@ -9,7 +10,7 @@ class GameObject(Sprite):
         if not isinstance(sprite, (Surface, Sprite, AnimatedSprite)):
             raise TypeError(f'Inappropriate argument type for {GameObject.__class__}: {type(sprite)}')
         super().__init__(*groups)
-        self._grid_pos = Vector2(pos)  # the position of the character in the grid of the tile map
+        self._grid_pos = Position(*pos)
         self._sprite = sprite
         self._rect = rect
 
@@ -22,6 +23,10 @@ class GameObject(Sprite):
     def gridy(self):
         """Position Y of the character in the GRID"""
         return int(self._grid_pos.y)
+
+    @property
+    def grid_position(self):
+        return self._grid_pos
 
     @property
     def coord(self):

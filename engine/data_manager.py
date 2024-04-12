@@ -45,7 +45,7 @@ class DataManager:
         map_name = data[NAME]
         ts_path = data[TS]
         player_spawn = data[PLAYER_SPAWN]
-        npc_locations = data[NPCS]
+        npc_locations = [tuple(x) for x in data[NPCS]]
         layers = []
         for layer in data[LAYERS]:
             layers.append(array(list(data[layer])))
