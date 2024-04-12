@@ -1,4 +1,4 @@
-import logging
+from logging import info
 from datetime import timedelta, datetime
 from threading import Thread
 
@@ -23,7 +23,7 @@ class Game:
 
     def __init__(self):
         """Initialize the game."""
-        logging.info('Initializing')
+        info('Initializing')
         pygame_init()
         mouse.set_visible(False)  # hide the system pointer to only see the game pointer :D
         game_data = FileSystem.parse_json('settings.json')
@@ -106,7 +106,7 @@ class Game:
 
     def stop_loop(self):
         """Stop the main loop for the game."""
-        logging.info('Stopping')
+        info('Stopping')
         self.__status = STOPPING_ST
 
     def load_map(self, map_id='test_zone'):
@@ -127,18 +127,18 @@ class Game:
         """
         Initializes the routine by loading assets, initializing the DataManager, loading the map, and registering event types.
         """
-        logging.info('Loading assets...')
+        info('Loading assets...')
         result = DataManager.init()
         if not result:
             raise Exception('Something went wrong while loading assets')
         self.load_map()  # TODO: replace this method with the game HOME UI
-        logging.info('Done loading assets!')
+        info('Done loading assets!')
 
     def __loop(self):
-        logging.info('Main loop started')
+        info('Main loop started')
         while self.__status != STOPPING_ST:
             self.__update()
-        logging.info('Stopped running')
+        info('Stopped running')
 
     def __update(self):
         """
@@ -156,7 +156,7 @@ class Game:
         """Checks for game events"""
         for event in system_event.get():
             if event.type == QUIT:
-                logging.info('An event to QUIT has been started')
+                info('An event to QUIT has been started')
                 self.stop_loop()
             if event.type == KEYDOWN:
                 self.__key_down(event.key)
@@ -173,7 +173,7 @@ class Game:
         :return: None
         """
         if key == EXIT_KEY:
-            logging.info('User is quitting')
+            info('User is quitting')
             self.stop_loop()
         elif key == ACTION_KEY:
             # for player interaction, unused for now
@@ -181,9 +181,11 @@ class Game:
         if key == MENU_KEY:
             self.__status = PAUSED_ST if self.__status != PAUSED_ST else PLAYING_ST
         if key == FULL_SCREEN:
-            new_size = self.__display.fullscreen()
+            info('Full screen event has been started. However, this function is temporarily disabled')
+            pass
+            # new_size = self.__display.change_fullscreen_mode()
             # FIXME: camera glitches when size is changed...
-            self.__camera.size = self.__display.size
+            # self.__camera.size = self.__display.size
 
     def __player_movement(self):
         """

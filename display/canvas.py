@@ -72,22 +72,25 @@ class Canvas:
         self.__ui.update(game)
         flip()
 
-    def fullscreen(self):
-        if self.__fullscreen:
-            self.resize(self.__WINDOWED_SIZE)
-        else:
-            self.resize((0, 0), True)
-        self.__fullscreen = not self.__fullscreen
-
-    def resize(self, new_size: tuple, full_screen=False):
+    def change_fullscreen_mode(self):
         logging.info('Updating display size')
-        if full_screen:
+        if self.__fullscreen:
+            new_size = self.__WINDOWED_SIZE
+            # self.resize(self.__WINDOWED_SIZE)
+        else:
+            new_size = Size(0, 0)
+            # self.resize((0, 0), True)
+        if new_size == (0, 0):
             logging.info(f'Going full screen: {self.__screen_size}')
             set_mode(new_size, FULLSCREEN)
         else:
-            logging.info(f'New display size in windowed mode: {new_size}')
+            logging.info(f'Exiting full screen: {new_size}')
             set_mode(new_size)
         self.__current_size = new_size
+        self.__fullscreen = not self.__fullscreen
+
+    # def resize(self, new_size: tuple, full_screen=False):
+    #
 
     def __draw_map(self, game):
         map_obj = game.map.render()
